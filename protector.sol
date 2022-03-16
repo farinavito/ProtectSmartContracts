@@ -36,7 +36,7 @@ contract Protector {
         }
 
   modifier onlyprotectortOwner(){
-      require(msg.sender == owner, "You are not the owner");
+      require(msg.sender == protectortOwner, "You are not the owner");
       _;
   }
 
