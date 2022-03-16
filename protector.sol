@@ -73,7 +73,7 @@ contract Protector {
     return whitelist[_address];
   }
 
-  //create functionality that _nextInLine needs to be approved by multisig, if it's not, you can't change owner
+  //create functionality that _nextInLine needs to be approved by multisig, if it's not, you can't change owner.
   /// @notice Changing the owner and the waitingToBeOwner
   function changeOwner(addres _nextInline) external {
     require(waitingToBeOwner == msg.sender, "You don't have permissions");
