@@ -6,35 +6,56 @@ pragma solidity 0.8.11;
 
 contract Protector {
 
-    address protector1;
-    address protector2;
-    address protector3;
-    address protector4;
-    address protector5;
+  struct Protectors{
+    uint256 protectorId;
+    address protectorAddress;    
+  }
+
+  mapping(address => mapping(address => bool)) alreadyVoted;
+
+  /// @notice Used to increase the id of the agreements
+  uint public numProtectors = 1;
+
+  /// @notice A unique identifier of the protector
+  mapping (uint256 => Protector) internal protectors;
+
+  /// @notice Candidate for protectorWaitingToBeOwner
+  mapping (address => uint256) candidates;
     
-    /// @notice Storing the owner's address
-    address internal protectortOwner;
+  /// @notice Storing the owner's address
+  address internal protectortOwner;
 
-    /// @notice Storing the next in line to be an owner
-    address internal protectorWaitingToBeOwner;
+  /// @notice Storing the next in line to be an owner
+  address internal protectorWaitingToBeOwner;
 
-    constructor (
-        address _protectOwner,
-        address _protectorWaitingToBeOwner, 
-        address _protector1, 
-        address _protector2, 
-        address _protector3, 
-        address _protector4, 
-        address _protector5 
-        ){
-      protectortOwner = _protectOwner;
-      protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
-      protector1 = _protector1;
-      protector2 = _protector2;
-      protector3 = _protector3;
-      protector4 = _protector4;
-      protector5 = _protector5;
-        }
+  constructor (
+      address _protectOwner,
+      address _protectorWaitingToBeOwner, 
+      address _protector1, 
+      address _protector2, 
+      address _protector3, 
+      address _protector4, 
+      address _protector5 
+      ){
+    protectortOwner = _protectOwner;
+    protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
+
+    Protectors memory protectors = Protectors(numProtectors, _protector1);   
+    /*
+    Protectors storage newProtector = protectors[numProtectors];
+    newProtector.protectorId = numProtectors;
+    newProtector.protectorAddress = _protector1;
+    */
+    numProtectors++;
+  
+    /*
+    protector1 = _protector1;
+    protector2 = _protector2;
+    protector3 = _protector3;
+    protector4 = _protector4;
+    protector5 = _protector5;
+    */
+  }
 
   modifier onlyprotectortOwner(){
       require(msg.sender == protectortOwner, "You are not the owner");
@@ -81,9 +102,25 @@ contract Protector {
   /// @notice Changing the owner and the waitingToBeOwner
   function changeOwner(address _nextInline) external {
     require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
-    require(protectorWaitingToBeOwner != _nextInline);
+    require(protectorWaitingToBeOwner != _nextInline, "protectorWaitingToBeOwner can't be the same");
+    require(candidates[_nextInline] == 5, "Not all protectors agree with this address");
     protectortOwner = protectorWaitingToBeOwner;
     protectorWaitingToBeOwner = _nextInline;
+  }
+
+ 
+  function addCandidate(address _nextInLine, uint256 _id) external {
+    require(protectors[_id].protectorAddress == msg.sender);
+    candidates[_nextInLine] == 0;
+  }
+
+
+  function voteCandidate(address _nextInLine, uint256 _id) external {
+    require(protectors[_id].protectorAddress == msg.sender);
+    require(alreadyVoted[msg.sender][_nextInLine] == false, "You have entered your vote");
+    alreadyVoted[msg.sender][_nextInLine] = true;
+    candidates[_nextInLine] += 1;
+
   }
 
 }
