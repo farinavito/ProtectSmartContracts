@@ -18,10 +18,22 @@ contract Protector {
     /// @notice Storing the next in line to be an owner
     address internal protectorWaitingToBeOwner;
 
-    constructor(address _protectorWaitingToBeOwner){
+    constructor (
+        address _protectorWaitingToBeOwner, 
+        address _protector1, 
+        address _protector2, 
+        address _protector3, 
+        address _protector4, 
+        address _protector5 
+        ){
       protectortOwner = msg.sender;
       protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
-  }
+      protector1 = _protector1;
+      protector2 = _protector2;
+      protector3 = _protector3;
+      protector4 = _protector4;
+      protector5 = _protector5;
+        }
 
   modifier onlyprotectortOwner(){
       require(msg.sender == owner, "You are not the owner");
