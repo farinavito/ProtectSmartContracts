@@ -6,17 +6,24 @@ pragma solidity 0.8.11;
 
 contract Protector {
 
+    address protector1;
+    address protector2;
+    address protector3;
+    address protector4;
+    address protector5;
+    
     /// @notice Storing the owner's address
     address internal protectortOwner;
 
     /// @notice Storing the next in line to be an owner
-    address protectorWaitingToBeOwner;
+    address internal protectorWaitingToBeOwner;
 
-    constructor(){
+    constructor(address _protectorWaitingToBeOwner){
       protectortOwner = msg.sender;
+      protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
   }
 
-  modifier onlyOwner(){
+  modifier onlyprotectortOwner(){
       require(msg.sender == owner, "You are not the owner");
       _;
   }
@@ -33,13 +40,13 @@ contract Protector {
   event AddedToTheList(address account);
 
   /// @notice Adding address to the whitelist
-  function addToWhitelist(address _address) external onlyOwner {
+  function addToWhitelist(address _address) external onlyprotectortOwner {
     whitelist[_address] = true;
     emit AddedToTheList(_address);
   }
   
   /// @notice Removing address from the whitelist
-  function removedFromWhitelist(address _address) external onlyOwner {
+  function removedFromWhitelist(address _address) external onlyprotectortOwner {
     whitelist[_address] = false;
     emit RemovedFromTheList(_address);
   }
