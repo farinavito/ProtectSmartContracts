@@ -19,6 +19,7 @@ contract Protector {
     address internal protectorWaitingToBeOwner;
 
     constructor (
+        address _protectOwner,
         address _protectorWaitingToBeOwner, 
         address _protector1, 
         address _protector2, 
@@ -26,7 +27,7 @@ contract Protector {
         address _protector4, 
         address _protector5 
         ){
-      protectortOwner = msg.sender;
+      protectortOwner = _protectOwner;
       protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
       protector1 = _protector1;
       protector2 = _protector2;
