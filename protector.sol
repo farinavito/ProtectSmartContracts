@@ -51,6 +51,9 @@ contract Protector {
   /// @notice When an account is whitelisted
   event AddedToTheList(address account);
 
+  /// @notice When an account is removed from whitelist
+  event RemovedFromTheList(address account);
+
   /// @notice Adding address to the whitelist
   function addToWhitelist(address _address) external onlyprotectortOwner {
     whitelist[_address] = true;
@@ -75,11 +78,11 @@ contract Protector {
 
   //create functionality that _nextInLine needs to be approved by multisig, if it's not, you can't change owner.
   /// @notice Changing the owner and the waitingToBeOwner
-  function changeOwner(addres _nextInline) external {
-    require(waitingToBeOwner == msg.sender, "You don't have permissions");
-    require(waitingToBeOwner != _nextInline);
-    owner = waitingToBeOwner;
-    waitingToBeOwner = _nextInline;
+  function changeOwner(address _nextInline) external {
+    require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
+    require(protectorWaitingToBeOwner != _nextInline);
+    protectortOwner = protectorWaitingToBeOwner;
+    protectorWaitingToBeOwner = _nextInline;
   }
 
 }
