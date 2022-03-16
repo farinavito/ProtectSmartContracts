@@ -12,4 +12,18 @@ contract Protector {
     /// @notice Storing the next in line to be an owner
     address protectorWaitingToBeOwner;
 
+    constructor(){
+      protectortOwner = msg.sender;
+  }
+
+  modifier onlyOwner(){
+      require(msg.sender == owner, "You are not the owner");
+      _;
+  }
+
+  modifier onlyWhitelisted() {
+    require(isWhitelisted(msg.sender), "You aren't whitelisted");
+    _;
+  }
+
 }
