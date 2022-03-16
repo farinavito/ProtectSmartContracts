@@ -9,4 +9,7 @@ contract Protector {
     /// @notice Storing the owner's address
     address internal protectortOwner;
 
+    /// @notice Storing the next in line to be an owner
+    address protectorWaitingToBeOwner;
+
 }
