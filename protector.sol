@@ -45,23 +45,32 @@ contract AddressProtector {
         protectorStruct storage newProtector = protectors[numProtectors];
         //initialize 1st protector
         newProtector.protectorId = numProtectors;
-        newProtector.protectorAddress = _protector1; 
+        newProtector.protectorAddress = _protector1;
+        alreadyVoted[_protector1][protectorWaitingToBeOwner] = true; 
         //initialize 2nd protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector2;
+        alreadyVoted[_protector2][protectorWaitingToBeOwner] = true; 
         //initialize 3rd protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector3;
+        alreadyVoted[_protector3][protectorWaitingToBeOwner] = true; 
         //initialize 4th protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector4;
+        alreadyVoted[_protector4][protectorWaitingToBeOwner] = true; 
         //initialize 5th protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector5;
+        alreadyVoted[_protector5][protectorWaitingToBeOwner] = true; 
+        //initialized candidate votes to 5
+        candidates[protectorWaitingToBeOwner] = 5;
+
+        
     }
 
     /// @notice Only the protectortOwner can access
