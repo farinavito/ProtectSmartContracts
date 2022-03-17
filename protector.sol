@@ -13,22 +13,27 @@ contract AddressProtector {
     }
 
     /// @notice Adding votes for candidates by protectors
-    mapping(address => mapping(address => bool)) internal alreadyVoted;
+    //change to internal
+    mapping(address => mapping(address => bool)) public alreadyVoted;
 
     /// @notice Used to increase the id of the agreements
     uint public numProtectors = 1;
 
     /// @notice A unique identifier of the protector
-    mapping (uint256 => protectorStruct) internal protectors;
+    //change back to internal
+    mapping (uint256 => protectorStruct) public protectors;
 
     /// @notice Candidate for protectorWaitingToBeOwner
-    mapping (address => uint256) internal candidates;
+    //change to internal
+    mapping (address => uint256) public candidates;
         
     /// @notice Storing the owner's address
     address internal protectortOwner;
 
     /// @notice Storing the next in line to be an owner
     address internal protectorWaitingToBeOwner;
+
+    address[] internal allprotectorsaddresses;
 
     constructor (
         address _protectOwner,
@@ -42,31 +47,49 @@ contract AddressProtector {
         protectortOwner = _protectOwner;
         protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
 
+        //allprotectorsaddresses.push(_protector1, _protector2, _protector3, _protector4, _protector5);
+        allprotectorsaddresses.push(_protector1);
+        allprotectorsaddresses.push(_protector2);
+        allprotectorsaddresses.push(_protector3);
+        allprotectorsaddresses.push(_protector4);
+        allprotectorsaddresses.push(_protector5);
+
+        for (uint256 i = 1; i <= 5; i++){
+            protectorStruct storage newProtector = protectors[i];
+            newProtector.protectorId = numProtectors;
+            newProtector.protectorAddress = allprotectorsaddresses[i - 1];
+            alreadyVoted[allprotectorsaddresses[i - 1]][protectorWaitingToBeOwner] = true;
+        }
+        /*
         protectorStruct storage newProtector = protectors[numProtectors];
         //initialize 1st protector
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector1;
         alreadyVoted[_protector1][protectorWaitingToBeOwner] = true; 
+
         //initialize 2nd protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector2;
-        alreadyVoted[_protector2][protectorWaitingToBeOwner] = true; 
+       
         //initialize 3rd protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector3;
-        alreadyVoted[_protector3][protectorWaitingToBeOwner] = true; 
+        alreadyVoted[_protector3][protectorWaitingToBeOwner] = true;
+
         //initialize 4th protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector4;
         alreadyVoted[_protector4][protectorWaitingToBeOwner] = true; 
+
         //initialize 5th protector
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector5;
         alreadyVoted[_protector5][protectorWaitingToBeOwner] = true; 
+        */
         //initialized candidate votes to 5
         candidates[protectorWaitingToBeOwner] = 5;
 
@@ -138,5 +161,15 @@ contract AddressProtector {
         alreadyVoted[msg.sender][_nextInLine] = true;
         candidates[_nextInLine] += 1;
     }
+
+    /// JUST FOR TESTING
+    function showProtectorAddress( uint256 _id) external view returns(address){
+        return protectors[_id].protectorAddress;
+    } 
+
+    /// JUST FOR TESTING
+    function setVote( uint256 _id, address _nextInLine) external {
+        alreadyVoted[protectors[_id].protectorAddress][_nextInLine] = true;
+    } 
 
 }
