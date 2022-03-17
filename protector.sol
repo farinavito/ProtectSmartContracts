@@ -16,9 +16,6 @@ contract AddressProtector {
     //change to internal
     mapping(address => mapping(address => bool)) public alreadyVoted;
 
-    /// @notice Used to increase the id of the agreements
-    uint public numProtectors = 1;
-
     /// @notice A unique identifier of the protector
     //change back to internal
     mapping (uint256 => protectorStruct) public protectors;
@@ -56,42 +53,12 @@ contract AddressProtector {
 
         for (uint256 i = 1; i <= 5; i++){
             protectorStruct storage newProtector = protectors[i];
-            newProtector.protectorId = numProtectors;
+            newProtector.protectorId = i;
             newProtector.protectorAddress = allprotectorsaddresses[i - 1];
-            alreadyVoted[allprotectorsaddresses[i - 1]][protectorWaitingToBeOwner] = true;
+            //alreadyVoted[allprotectorsaddresses[i - 1]][protectorWaitingToBeOwner] = true;
         }
-        /*
-        protectorStruct storage newProtector = protectors[numProtectors];
-        //initialize 1st protector
-        newProtector.protectorId = numProtectors;
-        newProtector.protectorAddress = _protector1;
-        alreadyVoted[_protector1][protectorWaitingToBeOwner] = true; 
-
-        //initialize 2nd protector
-        numProtectors++;
-        newProtector.protectorId = numProtectors;
-        newProtector.protectorAddress = _protector2;
-       
-        //initialize 3rd protector
-        numProtectors++;
-        newProtector.protectorId = numProtectors;
-        newProtector.protectorAddress = _protector3;
-        alreadyVoted[_protector3][protectorWaitingToBeOwner] = true;
-
-        //initialize 4th protector
-        numProtectors++;
-        newProtector.protectorId = numProtectors;
-        newProtector.protectorAddress = _protector4;
-        alreadyVoted[_protector4][protectorWaitingToBeOwner] = true; 
-
-        //initialize 5th protector
-        numProtectors++;
-        newProtector.protectorId = numProtectors;
-        newProtector.protectorAddress = _protector5;
-        alreadyVoted[_protector5][protectorWaitingToBeOwner] = true; 
-        */
         //initialized candidate votes to 5
-        candidates[protectorWaitingToBeOwner] = 5;
+        //candidates[protectorWaitingToBeOwner] = 5;
 
         
     }
@@ -160,6 +127,14 @@ contract AddressProtector {
         require(alreadyVoted[msg.sender][_nextInLine] == false, "You have entered your vote");
         alreadyVoted[msg.sender][_nextInLine] = true;
         candidates[_nextInLine] += 1;
+    }
+
+    /// @notice remove vote by the protector from previously voted protectorWaitingToBeOwner
+    function removeVote(address _nextInLine, uint256 _id) external {
+        require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
+        require(alreadyVoted[msg.sender][_nextInLine] == true, "You haven't voted for this address");
+        alreadyVoted[msg.sender][_nextInLine] = false;
+        candidates[_nextInLine] -= 1;
     }
 
     /// JUST FOR TESTING
