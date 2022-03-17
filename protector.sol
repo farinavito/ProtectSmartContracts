@@ -45,13 +45,13 @@ contract AddressProtector {
         protectortOwner = _protectOwner;
         protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
 
-        //allprotectorsaddresses.push(_protector1, _protector2, _protector3, _protector4, _protector5);
         allprotectorsaddresses.push(_protector1);
         allprotectorsaddresses.push(_protector2);
         allprotectorsaddresses.push(_protector3);
         allprotectorsaddresses.push(_protector4);
         allprotectorsaddresses.push(_protector5);
 
+        //initialize the protectors
         for (uint256 i = 1; i <= 5; i++){
             protectorStruct storage newProtector = protectors[i];
             newProtector.protectorId = i;
