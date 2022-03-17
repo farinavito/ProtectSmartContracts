@@ -62,8 +62,6 @@ contract AddressProtector {
         numProtectors++;
         newProtector.protectorId = numProtectors;
         newProtector.protectorAddress = _protector5;
-    
-        
     }
 
     /// @notice Only the protectortOwner can access
@@ -130,7 +128,6 @@ contract AddressProtector {
         require(alreadyVoted[msg.sender][_nextInLine] == false, "You have entered your vote");
         alreadyVoted[msg.sender][_nextInLine] = true;
         candidates[_nextInLine] += 1;
-
     }
 
 }
