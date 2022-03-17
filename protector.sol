@@ -138,14 +138,5 @@ contract AddressProtector {
         candidates[_nextInLine] -= 1;
     }
 
-    /// JUST FOR TESTING
-    function showProtectorAddress( uint256 _id) external view returns(address){
-        return protectors[_id].protectorAddress;
-    } 
-
-    /// JUST FOR TESTING
-    function setVote( uint256 _id, address _nextInLine) external {
-        alreadyVoted[protectors[_id].protectorAddress][_nextInLine] = true;
-    } 
 
 }
