@@ -4,23 +4,23 @@ pragma solidity 0.8.11;
 /// @title A way to reduce the risk in smart contracts when one address is compromised.
 /// @author Farina Vito
 
-contract Protector {
+contract AddressProtector {
 
-  struct Protectors{
+  struct protectorStruct{
     uint256 protectorId;
     address protectorAddress;    
   }
 
-  mapping(address => mapping(address => bool)) alreadyVoted;
+  mapping(address => mapping(address => bool)) internal alreadyVoted;
 
   /// @notice Used to increase the id of the agreements
   uint public numProtectors = 1;
 
   /// @notice A unique identifier of the protector
-  mapping (uint256 => Protector) internal protectors;
+  mapping (uint256 => protectorStruct) internal protectors;
 
   /// @notice Candidate for protectorWaitingToBeOwner
-  mapping (address => uint256) candidates;
+  mapping (address => uint256) internal candidates;
     
   /// @notice Storing the owner's address
   address internal protectortOwner;
@@ -40,21 +40,28 @@ contract Protector {
     protectortOwner = _protectOwner;
     protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
 
-    Protectors memory protectors = Protectors(numProtectors, _protector1);   
-    /*
-    Protectors storage newProtector = protectors[numProtectors];
+    protectorStruct storage newProtector = protectors[numProtectors];
+    //initialize 1st protector
     newProtector.protectorId = numProtectors;
-    newProtector.protectorAddress = _protector1;
-    */
+    newProtector.protectorAddress = _protector1; 
+    //initialize 2nd protector
     numProtectors++;
+    newProtector.protectorId = numProtectors;
+    newProtector.protectorAddress = _protector2;
+    //initialize 3rd protector
+    numProtectors++;
+    newProtector.protectorId = numProtectors;
+    newProtector.protectorAddress = _protector3;
+    //initialize 4th protector
+    numProtectors++;
+    newProtector.protectorId = numProtectors;
+    newProtector.protectorAddress = _protector4;
+    //initialize 5th protector
+    numProtectors++;
+    newProtector.protectorId = numProtectors;
+    newProtector.protectorAddress = _protector5;
   
-    /*
-    protector1 = _protector1;
-    protector2 = _protector2;
-    protector3 = _protector3;
-    protector4 = _protector4;
-    protector5 = _protector5;
-    */
+    
   }
 
   modifier onlyprotectortOwner(){
@@ -111,7 +118,7 @@ contract Protector {
  
   function addCandidate(address _nextInLine, uint256 _id) external {
     require(protectors[_id].protectorAddress == msg.sender);
-    candidates[_nextInLine] == 0;
+    candidates[_nextInLine] = 0;
   }
 
 
