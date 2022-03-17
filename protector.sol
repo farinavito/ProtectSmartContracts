@@ -30,6 +30,7 @@ contract AddressProtector {
     /// @notice Storing the next in line to be an owner
     address internal protectorWaitingToBeOwner;
 
+    ///@notice Storing all protectors
     address[] internal allprotectorsaddresses;
 
     constructor (
