@@ -56,12 +56,7 @@ contract AddressProtector {
             protectorStruct storage newProtector = protectors[i];
             newProtector.protectorId = i;
             newProtector.protectorAddress = allprotectorsaddresses[i - 1];
-            //alreadyVoted[allprotectorsaddresses[i - 1]][protectorWaitingToBeOwner] = true;
         }
-        //initialized candidate votes to 5
-        //candidates[protectorWaitingToBeOwner] = 5;
-
-        
     }
 
     /// @notice Only the protectortOwner can access
