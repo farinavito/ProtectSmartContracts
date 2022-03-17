@@ -127,13 +127,13 @@ contract AddressProtector {
 
     /// @notice Adding candidates by protectors
     function addCandidate(address _nextInLine, uint256 _id) external {
-        require(protectors[_id].protectorAddress == msg.sender);
+        require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
         candidates[_nextInLine] = 0;
     }
 
     /// @notice Voting for candidates by protectors
     function voteCandidate(address _nextInLine, uint256 _id) external {
-        require(protectors[_id].protectorAddress == msg.sender);
+        require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
         require(alreadyVoted[msg.sender][_nextInLine] == false, "You have entered your vote");
         alreadyVoted[msg.sender][_nextInLine] = true;
         candidates[_nextInLine] += 1;
