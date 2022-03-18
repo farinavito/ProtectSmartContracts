@@ -69,7 +69,7 @@ contract AddressProtector {
     }
 
     /// @notice Whitelisted accounts that can access withdrawal_amount_owner
-    mapping(address => bool) internal whitelist;
+    mapping(address => bool) public whitelist;
 
     /// @notice When an account is whitelisted
     event AddedToTheList(address account);
