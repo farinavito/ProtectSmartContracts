@@ -22,7 +22,7 @@ contract AddressProtector {
     mapping (address => uint256) internal candidates;
         
     /// @notice Storing the owner's address
-    address internal protectortOwner;
+    address internal protectorOwner;
 
     /// @notice Storing the next in line to be an owner
     address internal protectorWaitingToBeOwner;
@@ -39,7 +39,7 @@ contract AddressProtector {
         address _protector4, 
         address _protector5 
         ){
-        protectortOwner = _protectorOwner;
+        protectorOwner = _protectorOwner;
         protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
 
         allprotectorsaddresses.push(_protector1);
@@ -56,9 +56,9 @@ contract AddressProtector {
         }
     }
 
-    /// @notice Only the protectortOwner can access
-    modifier onlyprotectortOwner(){
-        require(msg.sender == protectortOwner, "You are not the owner");
+    /// @notice Only the protectorOwner can access
+    modifier onlyprotectorOwner(){
+        require(msg.sender == protectorOwner, "You are not the owner");
         _;
     }
 
@@ -78,13 +78,13 @@ contract AddressProtector {
     event RemovedFromTheList(address account);
 
     /// @notice Adding address to the whitelist
-    function addToWhitelist(address _address) external onlyprotectortOwner {
+    function addToWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = true;
         emit AddedToTheList(_address);
     }
     
     /// @notice Removing address from the whitelist
-    function removedFromWhitelist(address _address) external onlyprotectortOwner {
+    function removedFromWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = false;
         emit RemovedFromTheList(_address);
     }
@@ -94,7 +94,7 @@ contract AddressProtector {
         require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
         require(protectorWaitingToBeOwner != _nextInline, "protectorWaitingToBeOwner can't be the same");
         require(candidates[_nextInline] == 5, "Not all protectors agree with this address");
-        protectortOwner = protectorWaitingToBeOwner;
+        protectorOwner = protectorWaitingToBeOwner;
         protectorWaitingToBeOwner = _nextInline;
     }
 
