@@ -71,24 +71,16 @@ contract AddressProtector {
     /// @notice Whitelisted accounts that can access withdrawal_amount_owner
     mapping(address => bool) public whitelist;
 
-    /// @notice When an account is whitelisted
-    event AddedToTheList(address account);
-
-    /// @notice When an account is removed from whitelist
-    event RemovedFromTheList(address account);
-
     /// @notice Adding address to the whitelist
     //check if there already exists a whitelist address
     function addToWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = true;
-        emit AddedToTheList(_address);
     }
     
     /// @notice Removing address from the whitelist
     //check if there already exists a whitelist address
     function removedFromWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = false;
-        emit RemovedFromTheList(_address);
     }
 
     /// @notice Changing the owner and the waitingToBeOwner
