@@ -88,16 +88,6 @@ contract AddressProtector {
         whitelist[_address] = false;
         emit RemovedFromTheList(_address);
     }
-    
-    /// @notice Checking if the address is whitelisted
-    function isWhitelisted(address _address) internal view returns(bool) {
-        return whitelist[_address];
-    }
-
-    /// @notice Checking if the address is whitelisted by the same address
-    function isWhitelistedExternal(address _address) external view onlyWhitelisted returns(bool) {
-        return whitelist[_address];
-    }
 
     /// @notice Changing the owner and the waitingToBeOwner
     function changeOwner(address _nextInline) external {
