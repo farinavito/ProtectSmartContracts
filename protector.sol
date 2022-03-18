@@ -12,13 +12,11 @@ contract AddressProtector {
         address protectorAddress;    
     }
 
-    //maybe public
     /// @notice Adding votes for candidates by protectors
-    mapping(address => mapping(address => bool)) internal alreadyVoted;
+    mapping(address => mapping(address => bool)) public alreadyVoted;
 
-    //maybe public
     /// @notice A unique identifier of the protector
-    mapping (uint256 => protectorStruct) internal protectors;
+    mapping (uint256 => protectorStruct) public protectors;
 
     /// @notice Candidate for protectorWaitingToBeOwner
     mapping (address => uint256) internal candidates;
