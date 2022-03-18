@@ -4,7 +4,7 @@ pragma solidity 0.8.11;
 /// @title A way to reduce the risk in smart contracts when one address is compromised.
 /// @author Farina Vito
 
-abstract contract AddressProtector {
+contract AddressProtector {
 
     /// @notice Creating a protector
     struct protectorStruct{
