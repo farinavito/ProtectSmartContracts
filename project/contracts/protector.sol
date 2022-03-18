@@ -78,12 +78,14 @@ contract AddressProtector {
     event RemovedFromTheList(address account);
 
     /// @notice Adding address to the whitelist
+    //check if there already exists a whitelist address
     function addToWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = true;
         emit AddedToTheList(_address);
     }
     
     /// @notice Removing address from the whitelist
+    //check if there already exists a whitelist address
     function removedFromWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = false;
         emit RemovedFromTheList(_address);
