@@ -120,7 +120,5 @@ contract AddressProtector {
         candidates[_nextInLine] -= 1;
     }
 
-    //maybe return all protectors -> make it public?
-
 
 }
