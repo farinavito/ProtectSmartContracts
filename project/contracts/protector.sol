@@ -64,7 +64,7 @@ contract AddressProtector {
 
     /// @notice Only the whitelisted address can access
     modifier onlyWhitelisted() {
-        require(isWhitelisted(msg.sender), "You aren't whitelisted");
+        require(whitelist[msg.sender], "You aren't whitelisted");
         _;
     }
 
