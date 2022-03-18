@@ -31,7 +31,7 @@ contract AddressProtector {
     address[] internal allprotectorsaddresses;
 
     constructor (
-        address _protectOwner,
+        address _protectorOwner,
         address _protectorWaitingToBeOwner, 
         address _protector1, 
         address _protector2, 
@@ -39,7 +39,7 @@ contract AddressProtector {
         address _protector4, 
         address _protector5 
         ){
-        protectortOwner = _protectOwner;
+        protectortOwner = _protectorOwner;
         protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
 
         allprotectorsaddresses.push(_protector1);
