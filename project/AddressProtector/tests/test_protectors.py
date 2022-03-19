@@ -24,10 +24,14 @@ def deploy(AddressProtector, module_isolation):
 '''TESTING CONSTRUCTOR INITIALIZATION'''
 
 
-@pytest.mark.aaa
+
 def test_protectorOwner_address(deploy):
     '''testing protectorOwner address'''
     assert deploy.protectorOwner() == accounts[protectorOwnerAddress]
+@pytest.mark.aaa
+def test_protectorWaitingToBeOwnerAddress_address(deploy):
+    '''testing protectorWaitingToBeOwnerAddress address'''
+    assert deploy.protectorWaitingToBeOwner() == accounts[protectorWaitingToBeOwnerAddress]
 
 def test_protector1_initialization_id(deploy):
     '''testing protector 1 id when added to constructor'''

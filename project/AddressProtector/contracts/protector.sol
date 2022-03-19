@@ -38,7 +38,7 @@ contract AddressProtector {
         address _protector5 
         ){
         protectorOwner = _protectorOwner;
-        protectorWaitingToBeOwner == _protectorWaitingToBeOwner;
+        protectorWaitingToBeOwner = _protectorWaitingToBeOwner;
 
         allprotectorsaddresses.push(_protector1);
         allprotectorsaddresses.push(_protector2);
