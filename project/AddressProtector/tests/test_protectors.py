@@ -7,7 +7,7 @@ from brownie.network import rpc
 from brownie.network.state import Chain
 
 #addresses
-protectorOwnerAddres = 1
+protectorOwnerAddress = 1
 protectorWaitingToBeOwnerAddress = 2
 addressProtector1 = 3
 addressProtector2 = 4
@@ -24,6 +24,10 @@ def deploy(AddressProtector, module_isolation):
 '''TESTING CONSTRUCTOR INITIALIZATION'''
 
 
+@pytest.mark.aaa
+def test_protectorOwner_address(deploy):
+    '''testing protectorOwner address'''
+    assert deploy.protectorOwner() == accounts[protectorOwnerAddress]
 
 def test_protector1_initialization_id(deploy):
     '''testing protector 1 id when added to constructor'''
@@ -56,11 +60,11 @@ def test_protector4_initialization_id(deploy):
 def test_protector4_initialization_address(deploy):
     '''testing protector 4 address when added to constructor'''
     assert deploy.protectors(4)[1] == accounts[addressProtector4]
-@pytest.mark.aaa
+
 def test_protector5_initialization_id(deploy):
     '''testing protector 5 address when added to constructor'''
     assert deploy.protectors(5)[0] == 5
-@pytest.mark.aaa
+
 def test_protector5_initialization_address(deploy):
     '''testing protector 5 address when added to constructor'''
     assert deploy.protectors(5)[1] == accounts[addressProtector5]
