@@ -19,10 +19,10 @@ contract AddressProtector {
     mapping (uint256 => protectorStruct) public protectors;
         
     /// @notice Storing the owner's address
-    address internal protectorOwner;
+    address public protectorOwner;
 
     /// @notice Storing the next in line to be an owner
-    address internal protectorWaitingToBeOwner;
+    address public protectorWaitingToBeOwner;
 
     ///@notice Storing all protectors
     address[] internal allprotectorsaddresses;
