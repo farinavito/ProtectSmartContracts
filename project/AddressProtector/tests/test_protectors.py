@@ -32,11 +32,19 @@ def test_protector1_initialization_id(deploy):
 def test_protector1_initialization_address(deploy):
     '''testing protector 1 address when added to constructor'''
     assert deploy.protectors(1)[1] == accounts[addressProtector1]
-@pytest.mark.aaa
+
 def test_protector2_initialization_id(deploy):
     '''testing protector 2 address when added to constructor'''
     assert deploy.protectors(2)[0] == 2
-@pytest.mark.aaa
+
 def test_protector2_initialization_address(deploy):
     '''testing protector 2 address when added to constructor'''
     assert deploy.protectors(2)[1] == accounts[addressProtector2]
+@pytest.mark.aaa
+def test_protector3_initialization_id(deploy):
+    '''testing protector 3 address when added to constructor'''
+    assert deploy.protectors(3)[0] == 3
+@pytest.mark.aaa
+def test_protector3_initialization_address(deploy):
+    '''testing protector 3 address when added to constructor'''
+    assert deploy.protectors(3)[1] == accounts[addressProtector3]
