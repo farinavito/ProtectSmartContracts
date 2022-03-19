@@ -28,7 +28,7 @@ def deploy(AddressProtector, module_isolation):
 def test_protectorOwner_address(deploy):
     '''testing protectorOwner address'''
     assert deploy.protectorOwner() == accounts[protectorOwnerAddress]
-@pytest.mark.aaa
+
 def test_protectorWaitingToBeOwnerAddress_address(deploy):
     '''testing protectorWaitingToBeOwnerAddress address'''
     assert deploy.protectorWaitingToBeOwner() == accounts[protectorWaitingToBeOwnerAddress]
@@ -72,3 +72,29 @@ def test_protector5_initialization_id(deploy):
 def test_protector5_initialization_address(deploy):
     '''testing protector 5 address when added to constructor'''
     assert deploy.protectors(5)[1] == accounts[addressProtector5]
+
+
+
+'''TESTING ALREADYVOTED'''
+
+
+
+def test_alreadyvoted_protector1(deploy):
+    '''check if protector1 has already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[addressProtector1], accounts[protectorWaitingToBeOwnerAddress]) == False
+
+def test_alreadyvoted_protector2(deploy):
+    '''check if protector2 has already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[addressProtector2], accounts[protectorWaitingToBeOwnerAddress]) == False
+
+def test_alreadyvoted_protector3(deploy):
+    '''check if protector3 has already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[addressProtector3], accounts[protectorWaitingToBeOwnerAddress]) == False
+
+def test_alreadyvoted_protector4(deploy):
+    '''check if protector4 has already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[addressProtector4], accounts[protectorWaitingToBeOwnerAddress]) == False
+
+def test_alreadyvoted_protector5(deploy):
+    '''check if protector5 has already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[addressProtector5], accounts[protectorWaitingToBeOwnerAddress]) == False
