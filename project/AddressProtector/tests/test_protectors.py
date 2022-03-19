@@ -18,3 +18,13 @@ addressProtector5 = 7
 @pytest.fixture()
 def deploy(AddressProtector, module_isolation):
     return AddressProtector.deploy(accounts[1], accounts[2], accounts[3], accounts[4], accounts[5], accounts[6], accounts[7], {'from': accounts[0]})
+
+
+
+'''TESTING CONSTRUCTOR INITIALIZATION'''
+
+
+
+def test_protector1_initialization_id(deploy):
+    '''testing protector 1 id when added to constructor'''
+    assert deploy.protectors(1)[0] == 1
