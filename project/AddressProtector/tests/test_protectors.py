@@ -28,3 +28,7 @@ def deploy(AddressProtector, module_isolation):
 def test_protector1_initialization_id(deploy):
     '''testing protector 1 id when added to constructor'''
     assert deploy.protectors(1)[0] == 1
+@pytest.mark.aaa
+def test_protector1_initialization_address(deploy):
+    '''testing protector 1 address when added to constructor'''
+    assert deploy.protectors(1)[1] == accounts[addressProtector1]
