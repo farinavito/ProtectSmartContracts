@@ -9,7 +9,7 @@ import "https://github.com/farinavito/ProtectSmartContracts/blob/main/project/Ad
 contract ProtectorOwnerWaitingOwner is AddressProtector() {
 
     /// @notice Candidate for protectorWaitingToBeOwner
-    mapping (address => uint256) internal candidates;
+    mapping (address => uint256) public candidates;
 
     /// @notice Only the protectorOwner can access
     modifier onlyprotectorOwner(){
