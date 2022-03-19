@@ -9,7 +9,7 @@ import "https://github.com/farinavito/ProtectSmartContracts/blob/main/project/Ad
 contract ProtectorOwnerWaitingOwner is AddressProtector() {
 
     /// @notice Candidate for protectorWaitingToBeOwner
-    mapping (address => uint256) public candidates;
+    mapping (address => uint256) public candidatesVotes;
 
     /// @notice Only the protectorOwner can access
     modifier onlyprotectorOwner(){
@@ -29,7 +29,7 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
     /// @notice Adding candidates by protectors
     function addCandidate(address _nextInLine, uint256 _id) external {
         require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
-        candidates[_nextInLine] = 0;
+        candidatesVotes[_nextInLine] = 0;
     }
 
     /// @notice Voting for candidates by protectors
@@ -37,7 +37,7 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
         require(alreadyVoted[msg.sender][_nextInLine] == false, "You have entered your vote");
         alreadyVoted[msg.sender][_nextInLine] = true;
-        candidates[_nextInLine] += 1;
+        candidatesVotes[_nextInLine] += 1;
     }
 
     /// @notice remove vote by the protector from previously voted protectorWaitingToBeOwner
@@ -45,6 +45,6 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
         require(alreadyVoted[msg.sender][_nextInLine] == true, "You haven't voted for this address");
         alreadyVoted[msg.sender][_nextInLine] = false;
-        candidates[_nextInLine] -= 1;
+        candidatesVotes[_nextInLine] -= 1;
     }
 }
