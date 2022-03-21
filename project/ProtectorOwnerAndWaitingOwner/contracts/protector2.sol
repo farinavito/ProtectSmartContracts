@@ -47,7 +47,7 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         alreadyVoted[msg.sender][_nextInLine] = true;
         candidatesVotes[_nextInLine] += 1;
     }
-
+    //add a require that number of votes cannot go under 0
     /// @notice remove vote by the protector from previously voted protectorWaitingToBeOwner
     function removeVote(address _nextInLine, uint256 _id) external {
         require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
