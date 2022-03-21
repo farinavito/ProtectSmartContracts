@@ -71,11 +71,19 @@ def test_protector5_initialization_address(deploy):
     '''testing protector 5 address when added to constructor'''
     assert deploy.protectors(5)[1] == accounts[addressProtector5]
 
+def test_protector6_initialization_address_0(deploy):
+    '''testing protector 5 address when added to constructor'''
+    assert deploy.protectors(6)[1] == "0x0000000000000000000000000000000000000000"
+
+def test_protector6_initialization_id_0(deploy):
+    '''testing protector 6 address when added to constructor'''
+    assert deploy.protectors(6)[0] == 0
+
 def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
     '''testing if protectorWaitingToBeOwnerAddress is initialized to 5'''
     assert deploy.candidatesVotes(accounts[protectorWaitingToBeOwnerAddress]) == 5
 
-    
+
 
 '''TESTING ALREADYVOTED'''
 
