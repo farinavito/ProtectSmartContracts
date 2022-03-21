@@ -129,6 +129,12 @@ def test_removeVote_3rd_require(deploy):
         assert e.message[50:] == "This candidate already has 0 votes"
     '''
 
+def test_removeVote_3rd_require_works_protector1(deploy):
+    '''Checking if CandidatesVotes works correctly'''
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 1, {'from': accounts[addressProtector1]})
+    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
+
+
 #check if you can remov more votes, maybe going negative?
 #decrease to negative to user that isn't initialized -> test created
 #check for initialized addresses, remove vote and vote
