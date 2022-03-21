@@ -15,7 +15,7 @@ addressProtector5 = 7
 
 @pytest.fixture()
 def deploy(AddressProtector, module_isolation):
-    return AddressProtector.deploy(accounts[1], accounts[2], accounts[3], accounts[4], accounts[5], accounts[6], accounts[7], {'from': accounts[0]})
+    return AddressProtector.deploy(accounts[protectorOwnerAddress], accounts[protectorWaitingToBeOwnerAddress], accounts[addressProtector1], accounts[addressProtector2], accounts[addressProtector3], accounts[addressProtector4], accounts[addressProtector5], {'from': accounts[0]})
 
 
 
@@ -25,7 +25,7 @@ def deploy(AddressProtector, module_isolation):
 
 def test_voteCandidate_1st_require_protectorOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorOwnerAddress'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[1]})
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[protectorOwnerAddress]})
     '''
     try:
         deploy.voteCandidate(accounts[9], 1, {'from': accounts[1]})
@@ -35,7 +35,7 @@ def test_voteCandidate_1st_require_protectorOwnerAddress(deploy):
 
 def test_voteCandidate_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorWaitingToBeOwnerAddress'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[2]})
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector2]})
     '''
     try:
         deploy.voteCandidate(accounts[9], 1, {'from': accounts[1]})
@@ -45,18 +45,18 @@ def test_voteCandidate_1st_require_protectorWaitingToBeOwnerAddress(deploy):
 
 def test_voteCandidate_2nd_require_(deploy):
     '''Checking if the same protector cannot vote twice for the same candidate'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[3]})
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[3]})
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
     '''
     try:
-        deploy.voteCandidate(accounts[9], 1, {'from': accounts[3]})
-        deploy.voteCandidate(accounts[9], 1, {'from': accounts[3]})
+        deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+        deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
     except Exception as e:
         assert e.message[50:] == "You have entered your vote"
     '''
 def test_voteCandidate_alreadyVoted_true(deploy):
     '''Check if the mapping alreadyVoted changes to true'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[3]})
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
     assert deploy.alreadyVoted(accounts[addressProtector1], accounts[9]) == True
 
 def test_voteCandidate_increase_candidatesVotes_protector1(deploy):
@@ -92,6 +92,13 @@ def test_voteCandidate_increase_candidatesVotes_protector5(deploy):
 
 def test_removeVote_1st_require_protectorOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorOwnerAddress'''
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[protectorOwnerAddress]})
+    '''
+    try:
+        deploy.removeVote(accounts[9], 1, {'from': accounts[1]})
+    except Exception as e:
+        assert e.message[50:] == "The id entered isn't equal to protector's id"
+    '''
 
 def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorWaitingToBeOwnerAddress '''
@@ -109,7 +116,7 @@ def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy):
 @pytest.mark.aaa
 def test_changeOwner_1st_require(deploy):
     '''checking if the user has permissions to change the owner'''
-    assert deploy.changeOwner(accounts[9], {'from': accounts[1]}) == "ok"
+    assert deploy.changeOwner(accounts[9], {'from': accounts[protectorOwnerAddress]}) == "ok"
     '''
     try:
         deploy.changeOwner(accounts[9], {'from': accounts[1]})        
@@ -119,7 +126,7 @@ def test_changeOwner_1st_require(deploy):
 @pytest.mark.aaa
 def test_changeOwner_2nd_require(deploy):
     '''checking if the protectorWaitingToBeOwner is not the same as before'''
-    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[3]}) == "ok"
+    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[addressProtector1]}) == "ok"
     '''
     try:
         deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[3]})        
@@ -129,7 +136,7 @@ def test_changeOwner_2nd_require(deploy):
 @pytest.mark.aaa
 def test_changeOwner_3rd_require(deploy):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
-    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[3]}) == "ok"
+    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[addressProtector1]}) == "ok"
     '''
     try:
         deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[3]})        
