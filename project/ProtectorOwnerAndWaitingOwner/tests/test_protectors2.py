@@ -126,7 +126,7 @@ def test_removeVote_3rd_require(deploy):
     try:
         deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
     except Exception as e:
-        assert e.message[50:] == "You have entered your vote"
+        assert e.message[50:] == "This candidate already has 0 votes"
     '''
 
 #check if you can remov more votes, maybe going negative?
