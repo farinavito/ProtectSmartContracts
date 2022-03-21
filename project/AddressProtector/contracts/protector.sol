@@ -15,6 +15,9 @@ contract AddressProtector {
 
     /// @notice A unique identifier of the protector
     mapping (uint256 => protectorStruct) public protectors;
+    
+    /// @notice Candidate for protectorWaitingToBeOwner
+    mapping (address => uint256) public candidatesVotes;
         
     /// @notice Storing the owner's address
     address public protectorOwner;
@@ -49,6 +52,8 @@ contract AddressProtector {
             protectorStruct storage newProtector = protectors[i];
             newProtector.protectorId = i;
             newProtector.protectorAddress = allprotectorsaddresses[i - 1];
+            candidatesVotes[_protectorWaitingToBeOwner] += 1;
+            newProtector.alreadyVoted[_protectorWaitingToBeOwner] = true;
         }
     }
     
