@@ -9,11 +9,9 @@ contract AddressProtector {
     /// @notice Creating a protector
     struct protectorStruct{
         uint256 protectorId;
-        address protectorAddress;    
+        address protectorAddress;
+        mapping(address => bool) alreadyVoted;
     }
-
-    /// @notice Adding votes for candidates by protectors
-    mapping(address => mapping(address => bool)) public alreadyVoted;
 
     /// @notice A unique identifier of the protector
     mapping (uint256 => protectorStruct) public protectors;
