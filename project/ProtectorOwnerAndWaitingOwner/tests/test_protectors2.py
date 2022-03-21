@@ -59,12 +59,30 @@ def test_voteCandidate_alreadyVoted_true(deploy):
     deploy.voteCandidate(accounts[9], 1, {'from': accounts[3]})
     assert deploy.alreadyVoted(accounts[addressProtector1], accounts[9]) == True
 
-def test_voteCandidate_increase_candidatesVotes(deploy):
+def test_voteCandidate_increase_candidatesVotes_protector1(deploy):
     '''check if the candidatesVotes increases''' 
-    deploy.voteCandidate(accounts[8], 1, {'from': accounts[3]})
+    deploy.voteCandidate(accounts[8], 1, {'from': accounts[addressProtector1]})
     assert deploy.candidatesVotes(accounts[8]) == 1
 
+def test_voteCandidate_increase_candidatesVotes_protector2(deploy):
+    '''check if the candidatesVotes increases''' 
+    deploy.voteCandidate(accounts[8], 2, {'from': accounts[addressProtector2]})
+    assert deploy.candidatesVotes(accounts[8]) == 2
 
+def test_voteCandidate_increase_candidatesVotes_protector3(deploy):
+    '''check if the candidatesVotes increases''' 
+    deploy.voteCandidate(accounts[8], 3, {'from': accounts[addressProtector3]})
+    assert deploy.candidatesVotes(accounts[8]) == 3
+
+def test_voteCandidate_increase_candidatesVotes_protector4(deploy):
+    '''check if the candidatesVotes increases''' 
+    deploy.voteCandidate(accounts[8], 4, {'from': accounts[addressProtector4]})
+    assert deploy.candidatesVotes(accounts[8]) == 4
+
+def test_voteCandidate_increase_candidatesVotes_protector5(deploy):
+    '''check if the candidatesVotes increases''' 
+    deploy.voteCandidate(accounts[8], 5, {'from': accounts[addressProtector5]})
+    assert deploy.candidatesVotes(accounts[8]) == 5
 
 '''TESTING REMOVEVOTE'''   
 
