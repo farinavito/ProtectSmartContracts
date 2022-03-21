@@ -12,7 +12,7 @@ contract AddressProtector {
         address protectorAddress;
     }
 
-    /// @notice
+    /// @notice Adding votes for candidates by protectors
     mapping (address => mapping(address => bool)) alreadyVoted;
 
     /// @notice A unique identifier of the protector
