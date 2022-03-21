@@ -19,73 +19,6 @@ def deploy(AddressProtector, module_isolation):
 
 
 
-'''TESTING ADDCANDIDATE'''
-
-
-
-def test_addCandidate_1st_require_protectorOwnerAddress(deploy):
-    '''check if this function is only accessible to protectors and not to protectOwnerAddress'''
-    assert deploy.addCandidate(accounts[9], {'from': accounts[1]}) == "ok"
-    '''
-    try:
-        deploy.addCandidate(accounts[9], {'from': accounts[1]})        
-    except Exception as e:
-        assert e.message[50:] == "You aren't a protector"
-    '''
-
-def test_addCandidate_1st_require_protectorWaitingToBeOwnerAddress(deploy):
-    '''check if this function is only accessible to protectors and not to protectorWaitingToBeOwnerAddress'''
-    assert deploy.addCandidate(accounts[9], {'from': accounts[2]}) == "ok"
-    '''
-    try:
-        deploy.addCandidate(accounts[9], {'from': accounts[1]})        
-    except Exception as e:
-        assert e.message[50:] == "You aren't a protector"
-    '''
-
-def test_addCandidate_2nd_require(deploy):
-    '''check if the function rejects adding the same candidate twice'''
-    deploy.addCandidate(accounts[9], {'from': accounts[3]})
-    deploy.addCandidate(accounts[9], {'from': accounts[3]})
-    '''
-    try:
-        deploy.addCandidate(accounts[9], {'from': accounts[3]})
-    except Exception as e:
-        assert e.message[50:] == "candidate already exists"
-    '''
-
-def test_addCandidate_protector1(deploy):
-    '''check if the addCandidate function is accessible to protector 1'''
-    deploy.addCandidate(accounts[9], {'from': accounts[3]})
-    assert deploy.candidatesVotes[accounts[9]] == 1
-
-def test_addCandidate_protector2(deploy):
-    '''check if the addCandidate function is accessible to protector 2'''
-    deploy.addCandidate(accounts[9], {'from': accounts[4]})
-    assert deploy.candidatesVotes[accounts[9]] == 1
-
-def test_addCandidate_protector3(deploy):
-    '''check if the addCandidate function is accessible to protector 3'''
-    deploy.addCandidate(accounts[9], {'from': accounts[5]})
-    assert deploy.candidatesVotes[accounts[9]] == 1
-
-def test_addCandidate_protector4(deploy):
-    '''check if the addCandidate function is accessible to protector 4'''
-    deploy.addCandidate(accounts[9], {'from': accounts[6]})
-    assert deploy.candidatesVotes[accounts[9]] == 1
-
-def test_addCandidate_protector5(deploy):
-    '''check if the addCandidate function is accessible to protector 5'''
-    deploy.addCandidate(accounts[9], {'from': accounts[7]})
-    assert deploy.candidatesVotes[accounts[9]] == 1   
-
-def test_addCandidate_2nd_require(deploy):
-    '''check if the function modifies the existingCandidates mapping'''
-    deploy.addCandidate(accounts[9], {'from': accounts[3]})
-    assert deploy.existingCandidates[accounts[9]] == True 
-
-
-
 '''TESTING VOTECANDIDATE'''
 
 
@@ -142,7 +75,7 @@ def test_removeVote_1st_require_protectorOwnerAddress(deploy):
 
 def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorWaitingToBeOwnerAddress '''
-    
+
 '''TESTING CHANGEOWNER'''
 
 
