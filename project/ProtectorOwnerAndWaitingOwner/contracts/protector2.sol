@@ -11,9 +11,6 @@ import "./../AddressProtector/build/contracts/AddressProtector";
 contract ProtectorOwnerWaitingOwner is AddressProtector() {
     //maybe we should add functionality that you can't add protector for an owner
 
-    /// @notice Candidate for protectorWaitingToBeOwner
-    mapping (address => uint256) public candidatesVotes;
-
     /// @notice Storing the created candidates
     mapping (address => bool) public existingCandidates;
 
