@@ -155,11 +155,6 @@ def test_removeVote_3rd_require_works_protector5(deploy):
     assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
 
 
-#check if you can remov more votes, maybe going negative?
-#decrease to negative to user that isn't initialized -> test created
-#check for initialized addresses, remove vote and vote
-#remove vote if there already exists a candidate or it doesn't
-#check if the candidate already exists
 
 '''TESTING CHANGEOWNER'''
 
