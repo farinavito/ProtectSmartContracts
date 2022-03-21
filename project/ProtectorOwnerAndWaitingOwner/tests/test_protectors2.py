@@ -84,6 +84,8 @@ def test_voteCandidate_increase_candidatesVotes_protector5(deploy):
     deploy.voteCandidate(accounts[8], 5, {'from': accounts[addressProtector5]})
     assert deploy.candidatesVotes(accounts[8]) == 5
 
+
+
 '''TESTING REMOVEVOTE'''   
 
 
@@ -93,6 +95,13 @@ def test_removeVote_1st_require_protectorOwnerAddress(deploy):
 
 def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorWaitingToBeOwnerAddress '''
+
+
+#check if you can remov more votes, maybe going negative?
+#decrease to negative to user that isn't initialized
+#check for initialized addresses, remove vote and vote
+#remove vote if there already exists a candidate or it doesn't
+#check if the candidate already exists
 
 '''TESTING CHANGEOWNER'''
 
