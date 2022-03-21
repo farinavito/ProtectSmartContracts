@@ -29,13 +29,6 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         protectorWaitingToBeOwner = _nextInline;
     }
     
-    /// @notice Adding candidates by protectors
-    function addCandidate(address _nextInLine, uint256 _id) external {
-        require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
-        require(existingCandidates[_nextInLine] == false, "candidate already exists");
-        candidatesVotes[_nextInLine] = 0;
-        existingCandidates[_nextInLine] == true;
-    }
     // check if the candidate exists
     /// @notice Voting for candidates by protectors
     function voteCandidate(address _nextInLine, uint256 _id) external {
