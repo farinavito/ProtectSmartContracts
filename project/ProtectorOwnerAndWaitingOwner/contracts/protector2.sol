@@ -5,12 +5,17 @@ pragma solidity 0.8.11;
 /// @author Farina Vito
 
 //import "https://github.com/farinavito/ProtectSmartContracts/blob/main/project/AddressProtector/contracts/protector.sol";
-import "../../protector.sol";
+import "./../AddressProtector/build/contracts/AddressProtector";
+
 
 contract ProtectorOwnerWaitingOwner is AddressProtector() {
+    //maybe we should add functionality that you can't add protector for an owner
 
     /// @notice Candidate for protectorWaitingToBeOwner
     mapping (address => uint256) public candidatesVotes;
+
+    /// @notice Storing the created candidates
+    mapping (address => bool) public existingCandidates;
 
     /// @notice Only the protectorOwner can access
     modifier onlyprotectorOwner(){
@@ -26,16 +31,18 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         protectorOwner = protectorWaitingToBeOwner;
         protectorWaitingToBeOwner = _nextInline;
     }
-
+    
     /// @notice Adding candidates by protectors
     function addCandidate(address _nextInLine, uint256 _id) external {
         require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
+        require(existingCandidates[_nextInLine] == false, "candidate already exists");
         candidatesVotes[_nextInLine] = 0;
+        existingCandidates[_nextInLine] == true;
     }
-
+    // check if the candidate exists
     /// @notice Voting for candidates by protectors
     function voteCandidate(address _nextInLine, uint256 _id) external {
-        require(protectors[_id].protectorAddress == msg.sender, "You aren't a protector");
+        require(protectors[_id].protectorAddress == msg.sender, "The id entered isn't equal to protector's id");
         require(alreadyVoted[msg.sender][_nextInLine] == false, "You have entered your vote");
         alreadyVoted[msg.sender][_nextInLine] = true;
         candidatesVotes[_nextInLine] += 1;
