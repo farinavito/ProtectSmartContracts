@@ -95,14 +95,20 @@ def test_removeVote_1st_require_protectorOwnerAddress(deploy):
     deploy.voteCandidate(accounts[9], 1, {'from': accounts[protectorOwnerAddress]})
     '''
     try:
-        deploy.removeVote(accounts[9], 1, {'from': accounts[1]})
+        deploy.removeVote(accounts[9], 1, {'from': accounts[protectorOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "The id entered isn't equal to protector's id"
     '''
 
 def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorWaitingToBeOwnerAddress '''
-
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[protectorWaitingToBeOwnerAddress]})
+    '''
+    try:
+        deploy.removeVote(accounts[9], 1, {'from': accounts[protectorWaitingToBeOwnerAddress]})
+    except Exception as e:
+        assert e.message[50:] == "The id entered isn't equal to protector's id"
+    '''
 
 #check if you can remov more votes, maybe going negative?
 #decrease to negative to user that isn't initialized
