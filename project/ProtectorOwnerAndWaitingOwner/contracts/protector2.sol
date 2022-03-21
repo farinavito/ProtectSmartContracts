@@ -14,12 +14,6 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
     /// @notice Storing the created candidates
     mapping (address => bool) public existingCandidates;
 
-    /// @notice Only the protectorOwner can access
-    modifier onlyprotectorOwner(){
-        require(msg.sender == protectorOwner, "You are not the owner");
-        _;
-    }
-
     /// @notice Changing the owner and the waitingToBeOwner
     function changeOwner(address _nextInline) external {
         require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
