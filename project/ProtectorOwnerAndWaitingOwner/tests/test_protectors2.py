@@ -139,6 +139,21 @@ def test_removeVote_3rd_require_works_protector2(deploy):
     deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 2, {'from': accounts[addressProtector2]})
     assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
 
+def test_removeVote_3rd_require_works_protector3(deploy):
+    '''Checking if CandidatesVotes works correctly'''
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 3, {'from': accounts[addressProtector3]})
+    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
+
+def test_removeVote_3rd_require_works_protector4(deploy):
+    '''Checking if CandidatesVotes works correctly'''
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 4, {'from': accounts[addressProtector4]})
+    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
+
+def test_removeVote_3rd_require_works_protector5(deploy):
+    '''Checking if CandidatesVotes works correctly'''
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 5, {'from': accounts[addressProtector5]})
+    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
+
 
 #check if you can remov more votes, maybe going negative?
 #decrease to negative to user that isn't initialized -> test created
