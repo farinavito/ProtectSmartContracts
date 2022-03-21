@@ -109,7 +109,16 @@ def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     except Exception as e:
         assert e.message[50:] == "The id entered isn't equal to protector's id"
     '''
-
+def test_removeVote_2nd_require(deploy):
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+    '''
+    try:
+        deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+        deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+    except Exception as e:
+        assert e.message[50:] == "You have entered your vote"
+    '''
 #check if you can remov more votes, maybe going negative?
 #decrease to negative to user that isn't initialized
 #check for initialized addresses, remove vote and vote
