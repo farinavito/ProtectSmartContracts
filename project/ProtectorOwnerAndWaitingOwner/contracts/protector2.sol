@@ -29,7 +29,6 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         protectorWaitingToBeOwner = _nextInline;
     }
     
-    // check if the candidate exists
     /// @notice Voting for candidates by protectors
     function voteCandidate(address _nextInLine, uint256 _id) external {
         require(protectors[_id].protectorAddress == msg.sender, "The id entered isn't equal to protector's id");
