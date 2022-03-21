@@ -14,6 +14,12 @@ contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner {
         _;
     }
 
+    /// @notice Only the protectorOwner can access
+    modifier onlyprotectorOwner(){
+        require(msg.sender == protectorOwner, "You are not the owner");
+        _;
+    }
+
     /// @notice Whitelisted accounts that can access withdrawal_amount_owner
     mapping(address => bool) public whitelist;
 
