@@ -10,8 +10,10 @@ contract AddressProtector {
     struct protectorStruct{
         uint256 protectorId;
         address protectorAddress;
-        mapping(address => bool) alreadyVoted;
     }
+
+    /// @notice
+    mapping (address => mapping(address => bool)) alreadyVoted;
 
     /// @notice A unique identifier of the protector
     mapping (uint256 => protectorStruct) public protectors;
@@ -53,7 +55,7 @@ contract AddressProtector {
             newProtector.protectorId = i;
             newProtector.protectorAddress = allprotectorsaddresses[i - 1];
             candidatesVotes[_protectorWaitingToBeOwner] += 1;
-            newProtector.alreadyVoted[_protectorWaitingToBeOwner] = true;
+            alreadyVoted[allprotectorsaddresses[i - 1]][_protectorWaitingToBeOwner] = true;
         }
     }
     

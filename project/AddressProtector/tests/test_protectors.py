@@ -38,6 +38,10 @@ def test_protector1_initialization_id(deploy):
 def test_protector1_initialization_address(deploy):
     '''testing protector 1 address when added to constructor'''
     assert deploy.protectors(1)[1] == accounts[addressProtector1]
+@pytest.mark.aaa
+def test_protector1_initialization_candidatesVotes(deploy):
+    '''testing protector 1 candidatesVotes when added to constructor'''
+    assert deploy.protectors(1)[3] == True
 
 def test_protector2_initialization_id(deploy):
     '''testing protector 2 address when added to constructor'''
@@ -71,7 +75,7 @@ def test_protector5_initialization_address(deploy):
     '''testing protector 5 address when added to constructor'''
     assert deploy.protectors(5)[1] == accounts[addressProtector5]
 
-
+#check candidates number
 
 '''TESTING ALREADYVOTED'''
 
