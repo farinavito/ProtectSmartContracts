@@ -75,6 +75,8 @@ def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
     '''testing if protectorWaitingToBeOwnerAddress is initialized to 5'''
     assert deploy.candidatesVotes(accounts[protectorWaitingToBeOwnerAddress]) == 5
 
+    
+
 '''TESTING ALREADYVOTED'''
 
 
