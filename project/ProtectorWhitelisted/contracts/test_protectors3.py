@@ -35,3 +35,8 @@ def test_addToWhitelist_whitelist_true(deploy):
     '''checking if the address is added to the whitelist'''
     deploy.addToWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
     assert deploy.whitelist(accounts[8]) == True
+
+def test_addToWhitelist_uninitialized(deploy):
+    '''checking if the whitelist returns false for not initialized address'''
+    assert deploy.whitelist(accounts[8]) == False
+#check if added multiple times
