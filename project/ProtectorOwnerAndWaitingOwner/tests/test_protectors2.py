@@ -129,40 +129,7 @@ def test_removeVote_2nd_require_prior_vote(deploy, protector):
         assert e.message[50:] == "You have entered your vote"
     '''
 
-def test_removeVote_3rd_require(deploy):
-    '''Checking if CandidatesVotes cannot have numbers under 0'''
-    deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
-    '''
-    try:
-        deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
-    except Exception as e:
-        assert e.message[50:] == "This candidate already has 0 votes"
-    '''
 
-def test_removeVote_3rd_require_works_protector1(deploy):
-    '''Checking if CandidatesVotes works correctly'''
-    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 1, {'from': accounts[addressProtector1]})
-    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
-
-def test_removeVote_3rd_require_works_protector2(deploy):
-    '''Checking if CandidatesVotes works correctly'''
-    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 2, {'from': accounts[addressProtector2]})
-    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
-
-def test_removeVote_3rd_require_works_protector3(deploy):
-    '''Checking if CandidatesVotes works correctly'''
-    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 3, {'from': accounts[addressProtector3]})
-    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
-
-def test_removeVote_3rd_require_works_protector4(deploy):
-    '''Checking if CandidatesVotes works correctly'''
-    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 4, {'from': accounts[addressProtector4]})
-    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
-
-def test_removeVote_3rd_require_works_protector5(deploy):
-    '''Checking if CandidatesVotes works correctly'''
-    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 5, {'from': accounts[addressProtector5]})
-    assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
 
 #check removeVote and voteCandidate together
 
