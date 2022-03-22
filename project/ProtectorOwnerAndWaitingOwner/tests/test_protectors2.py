@@ -76,6 +76,7 @@ def test_voteCandidate_increase_candidatesVotes_protectors_all(deploy):
     assert deploy.candidatesVotes(accounts[8]) == 5
 
 
+
 '''TESTING REMOVEVOTE'''   
 
 
@@ -98,17 +99,36 @@ def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy):
         deploy.removeVote(accounts[9], 1, {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "The id entered isn't equal to protector's id"
+
     '''
-def test_removeVote_2nd_require(deploy):
-    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 1, {'from': accounts[addressProtector1]})
-    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 1, {'from': accounts[addressProtector1]})
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_removeVote_2nd_require_no_vote(deploy, protector):
+    '''Checking if the same protector cannot vote twice for the same candidate when you haven't vote for it'''
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], protector - 1, {'from': accounts[protector]})
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], protector - 1, {'from': accounts[protector]})
     '''
     try:
-        deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
-        deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
+        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
     except Exception as e:
         assert e.message[50:] == "You have entered your vote"
     '''
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_removeVote_2nd_require_prior_vote(deploy, protector):
+    '''Checking if the same protector cannot vote twice for the same candidate'''
+    deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], protector - 1, {'from': accounts[protector]})
+    deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], protector - 1, {'from': accounts[protector]})
+    '''
+    try:
+        deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
+    except Exception as e:
+        assert e.message[50:] == "You have entered your vote"
+    '''
+
 def test_removeVote_3rd_require(deploy):
     '''Checking if CandidatesVotes cannot have numbers under 0'''
     deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
