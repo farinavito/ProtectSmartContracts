@@ -42,15 +42,15 @@ def test_voteCandidate_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     except Exception as e:
         assert e.message[50:] == "The id entered isn't equal to protector's id"
     '''
-
-def test_voteCandidate_2nd_require_(deploy):
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_voteCandidate_2nd_require_(deploy, protector):
     '''Checking if the same protector cannot vote twice for the same candidate'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
+    deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
     '''
     try:
-        deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
-        deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+        deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
+        deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
     except Exception as e:
         assert e.message[50:] == "You have entered your vote"
     '''
@@ -154,7 +154,7 @@ def test_removeVote_3rd_require_works_protector5(deploy):
     deploy.removeVote(accounts[protectorWaitingToBeOwnerAddress], 5, {'from': accounts[addressProtector5]})
     assert deploy.candidatesVotes[protectorWaitingToBeOwnerAddress] == 4
 
-
+#check removeVote and voteCandidate together
 
 '''TESTING CHANGEOWNER'''
 
