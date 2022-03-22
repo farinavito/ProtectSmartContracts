@@ -171,7 +171,7 @@ def test_voteCandidate_candidates_decrement_all_protectors(deploy):
     deploy.removeVote(accounts[9], 5, {'from': accounts[addressProtector5]})
     assert deploy.candidates(accounts[9]) == 0
 
-#check removeVote and voteCandidate together
+
 
 '''TESTING CHANGEOWNER'''
 
