@@ -20,6 +20,8 @@ def deploy(AddressProtector, module_isolation):
 
 '''TESTING ADDTOWHITELIST'''
 
+
+
 @pytest.mark.parametrize("not_owner",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_addToWhitelist_onlyprotectorOwner(deploy, not_owner):
     '''checking if only the protectorOwner can access this function'''
@@ -29,4 +31,7 @@ def test_addToWhitelist_onlyprotectorOwner(deploy, not_owner):
         deploy.addToWhitelist(accounts[8], {'from': accounts[not_owner]})
     '''
     
-    
+def test_addToWhitelist_whitelist_true(deploy):
+    '''checking if the address is added to the whitelist'''
+    deploy.addToWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
+    assert deploy.whitelist(accounts[8]) == True
