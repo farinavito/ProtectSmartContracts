@@ -176,7 +176,7 @@ def test_voteCandidate_candidates_decrement_all_protectors(deploy):
 '''TESTING CHANGEOWNER'''
 
 
-@pytest.mark.aaa
+
 def test_changeOwner_1st_require(deploy):
     '''checking if the user has permissions to change the owner'''
     assert deploy.changeOwner(accounts[9], {'from': accounts[protectorOwnerAddress]}) == "ok"
@@ -186,23 +186,24 @@ def test_changeOwner_1st_require(deploy):
     except Exception as e:
         assert e.message[50:] == "You don't have permissions"
     '''
-@pytest.mark.aaa
-def test_changeOwner_2nd_require(deploy):
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_changeOwner_2nd_require(deploy, protector):
     '''checking if the protectorWaitingToBeOwner is not the same as before'''
-    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[addressProtector1]}) == "ok"
+    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[protector]}) == "ok"
     '''
     try:
-        deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[3]})        
+        deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[protector]})        
     except Exception as e:
         assert e.message[50:] == "protectorWaitingToBeOwner can't be the same"
     '''
-@pytest.mark.aaa
-def test_changeOwner_3rd_require(deploy):
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_changeOwner_3rd_require(deploy, protector):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
-    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[addressProtector1]}) == "ok"
+    assert deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[protector]}) == "ok"
     '''
     try:
-        deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[3]})        
+        deploy.changeOwner(accounts[protectorWaitingToBeOwnerAddress], {'from': accounts[protector]})        
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
     '''
