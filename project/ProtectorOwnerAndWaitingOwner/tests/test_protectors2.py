@@ -207,3 +207,9 @@ def test_changeOwner_3rd_require(deploy, protector):
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
     '''
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_changeOwner_protectorOwner_changed(deploy, protector):
+    '''Checking if the protectorOwner is modified'''
+    deploy.changeOwner(accounts[8], {'from': accounts[protector]})
+    assert deploy.protectorOwner() == accounts[8]
