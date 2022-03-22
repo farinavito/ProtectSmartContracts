@@ -128,8 +128,12 @@ def test_removeVote_2nd_require_prior_vote(deploy, protector):
     except Exception as e:
         assert e.message[50:] == "You have entered your vote"
     '''
-
-
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_removeVote_alreadyVoted(deploy, protector):
+    '''check if alreadyVoted returns false after the protector removes its vote'''
+    deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
+    deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
+    assert deploy.alreadyVoted(accounts[protector], accounts[9]) == False
 
 #check removeVote and voteCandidate together
 
