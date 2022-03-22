@@ -157,6 +157,20 @@ def test_voteCandidate_candidates_decrement_protector(deploy, protector):
     deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
     assert deploy.candidates(accounts[9]) == 0
 
+def test_voteCandidate_candidates_decrement_all_protectors(deploy):
+    '''Checking if the candidates number decreases after the protector submits its removal vote'''
+    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[9], 2, {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[9], 3, {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[9], 4, {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[9], 5, {'from': accounts[addressProtector5]})
+    deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
+    deploy.removeVote(accounts[9], 2, {'from': accounts[addressProtector2]})
+    deploy.removeVote(accounts[9], 3, {'from': accounts[addressProtector3]})
+    deploy.removeVote(accounts[9], 4, {'from': accounts[addressProtector4]})
+    deploy.removeVote(accounts[9], 5, {'from': accounts[addressProtector5]})
+    assert deploy.candidates(accounts[9]) == 0
+
 #check removeVote and voteCandidate together
 
 '''TESTING CHANGEOWNER'''
