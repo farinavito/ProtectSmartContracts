@@ -65,3 +65,9 @@ def test_removeFromWhitelist_whitelist(deploy):
     deploy.addToWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
     deploy.removeFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
     assert deploy.whitelist(accounts[8]) == False
+
+def test_removeFromWhitelist_multipletimes(deploy):
+    '''checking if the whitelist returns false when address removed multiple times'''
+    deploy.removeFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
+    deploy.removeFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
+    assert deploy.whitelist(accounts[8]) == False
