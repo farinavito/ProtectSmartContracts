@@ -68,11 +68,11 @@ def test_alreadyvoted_protector6(deploy):
     assert deploy.alreadyVoted(accounts[9], accounts[protectorWaitingToBeOwnerAddress]) == False
 
 def test_alreadyvoted_protector7(deploy):
-    '''check if protector6 will fail for already voted when initialize'''
+    '''check if protector7 will fail for already voted when initialize'''
     assert deploy.alreadyVoted(accounts[protectorOwnerAddress], accounts[protectorWaitingToBeOwnerAddress]) == False
 
 def test_alreadyvoted_protector8(deploy):
-    '''check if protector6 will fail for already voted when initialize'''
+    '''check if protector8 will fail for already voted when initialize'''
     assert deploy.alreadyVoted(accounts[protectorWaitingToBeOwnerAddress], accounts[protectorWaitingToBeOwnerAddress]) == False
 
 def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
