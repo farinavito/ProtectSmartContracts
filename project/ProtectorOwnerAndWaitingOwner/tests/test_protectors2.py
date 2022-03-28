@@ -172,11 +172,11 @@ def test_voteCandidate_increase_candidatesVotes_protector(deploy, protector):
 
 def test_voteCandidate_increase_candidatesVotes_protectors_all(deploy):
     '''check if the candidatesVotes increases''' 
-    deploy.voteCandidate(accounts[8], addressProtector1, {'from': accounts[addressProtector1]})
-    deploy.voteCandidate(accounts[8], addressProtector2, {'from': accounts[addressProtector2]})
-    deploy.voteCandidate(accounts[8], addressProtector3, {'from': accounts[addressProtector3]})
-    deploy.voteCandidate(accounts[8], addressProtector4, {'from': accounts[addressProtector4]})
-    deploy.voteCandidate(accounts[8], addressProtector5, {'from': accounts[addressProtector5]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
     assert deploy.candidatesVotes(accounts[8]) == 5
 
 
