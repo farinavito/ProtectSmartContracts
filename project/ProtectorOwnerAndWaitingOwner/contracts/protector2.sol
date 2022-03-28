@@ -33,7 +33,7 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         require(protectorWaitingToBeOwner != _nextInline, "protectorWaitingToBeOwner can't be the same");
         require(candidatesVotes[_nextInline] == 5, "Not all protectors agree with this address");
         //reinitializing to 0
-        protectorOwner = protectorWaitingToBeOwner;
+        smartContractOwner = protectorWaitingToBeOwner;
         protectorWaitingToBeOwner = _nextInline;
     }
     
