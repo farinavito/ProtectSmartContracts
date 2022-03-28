@@ -12,20 +12,24 @@ addressProtector2 = 4
 addressProtector3 = 5
 addressProtector4 = 6
 addressProtector5 = 7
-
+'''
 @pytest.fixture()
 def deploy(AddressProtector, module_isolation):
     return AddressProtector.deploy(accounts[protectorOwnerAddress], accounts[protectorWaitingToBeOwnerAddress], accounts[addressProtector1], accounts[addressProtector2], accounts[addressProtector3], accounts[addressProtector4], accounts[addressProtector5], {'from': accounts[0]})
+'''
 
 
+@pytest.fixture()
+def deploy(ProtectorOwnerWaitingOwner, module_isolation):
+    return ProtectorOwnerWaitingOwner.deploy({'from': accounts[0]})
 
 '''TESTING VOTECANDIDATE'''
 
 
-
+@pytest.mark.aaa
 def test_voteCandidate_1st_require_protectorOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorOwnerAddress'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[protectorOwnerAddress]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[protectorOwnerAddress]})
     '''
     try:
         deploy.voteCandidate(accounts[9], 1, {'from': accounts[1]})
