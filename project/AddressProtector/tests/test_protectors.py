@@ -63,36 +63,11 @@ def test_protector_alreadyVoted_owner_true(deploy, protector):
     '''checking if the the protector has initialized alreadyVoted to true'''
     assert deploy.alreadyVoted(accounts[protector], accounts[protectorWaitingToBeOwnerAddress]) == True
 
+def test_alreadyvoted_protector6(deploy):
+    '''check if protector6 will fail for already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[9], accounts[protectorWaitingToBeOwnerAddress]) == False
+
 def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
     '''testing if protectorWaitingToBeOwnerAddress is initialized to 5'''
     assert deploy.candidatesVotes(accounts[protectorWaitingToBeOwnerAddress]) == 5
 
-
-
-'''TESTING ALREADYVOTED'''
-
-
-
-def test_alreadyvoted_protector1(deploy):
-    '''check if protector1 has already voted when initialize'''
-    assert deploy.alreadyVoted(accounts[addressProtector1], accounts[protectorWaitingToBeOwnerAddress]) == True
-
-def test_alreadyvoted_protector2(deploy):
-    '''check if protector2 has already voted when initialize'''
-    assert deploy.alreadyVoted(accounts[addressProtector2], accounts[protectorWaitingToBeOwnerAddress]) == True
-
-def test_alreadyvoted_protector3(deploy):
-    '''check if protector3 has already voted when initialize'''
-    assert deploy.alreadyVoted(accounts[addressProtector3], accounts[protectorWaitingToBeOwnerAddress]) == True
-
-def test_alreadyvoted_protector4(deploy):
-    '''check if protector4 has already voted when initialize'''
-    assert deploy.alreadyVoted(accounts[addressProtector4], accounts[protectorWaitingToBeOwnerAddress]) == True
-
-def test_alreadyvoted_protector5(deploy):
-    '''check if protector5 has already voted when initialize'''
-    assert deploy.alreadyVoted(accounts[addressProtector5], accounts[protectorWaitingToBeOwnerAddress]) == True
-
-def test_alreadyvoted_protector6(deploy):
-    '''check if protector6 will fail for already voted when initialize'''
-    assert deploy.alreadyVoted(accounts[9], accounts[protectorWaitingToBeOwnerAddress]) == False
