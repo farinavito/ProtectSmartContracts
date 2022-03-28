@@ -15,7 +15,7 @@ addressProtector5 = 7
 
 @pytest.fixture()
 def deploy(AddressProtector, module_isolation):
-    return AddressProtector.deploy(accounts[1], accounts[2], accounts[3], accounts[4], accounts[5], accounts[6], accounts[7], {'from': accounts[0]})
+    return AddressProtector.deploy(accounts[protectorOwnerAddress], accounts[protectorWaitingToBeOwnerAddress], accounts[addressProtector1], accounts[addressProtector2], accounts[addressProtector3], accounts[addressProtector4], accounts[addressProtector5], {'from': accounts[0]})
 
 
 
@@ -54,6 +54,8 @@ def test_protector1_initialization_address(deploy):
 def test_protector6_initialization_address_0(deploy):
     '''testing protector 5 address when added to constructor'''
     assert deploy.allprotectorsaddresses(accounts[9]) == "0x0000000000000000000000000000000000000000"
+
+
 
 def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
     '''testing if protectorWaitingToBeOwnerAddress is initialized to 5'''
