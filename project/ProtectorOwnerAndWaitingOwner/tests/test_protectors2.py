@@ -157,7 +157,7 @@ def test_voteCandidate_2nd_require_continue(deploy, protector):
         deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
     except Exception as e:
         assert e.message[50:] == "You have entered your vote"
- 
+
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_voteCandidate_alreadyVoted_true(deploy, protector):
     '''Check if the mapping alreadyVoted changes to true'''
@@ -167,7 +167,7 @@ def test_voteCandidate_alreadyVoted_true(deploy, protector):
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_voteCandidate_increase_candidatesVotes_protector(deploy, protector):
     '''check if the candidatesVotes increases''' 
-    deploy.voteCandidate(accounts[8], protector - 1, {'from': accounts[protector]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[protector]})
     assert deploy.candidatesVotes(accounts[8]) == 1
 
 def test_voteCandidate_increase_candidatesVotes_protectors_all(deploy):
