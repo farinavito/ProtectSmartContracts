@@ -17,7 +17,7 @@ contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner(){
 
     /// @notice Only the protectorOwner can access
     modifier onlyprotectorOwner(){
-        require(msg.sender == protectorOwner, "You are not the owner");
+        require(msg.sender == smartContractOwner, "You are not the owner");
         _;
     }
 
