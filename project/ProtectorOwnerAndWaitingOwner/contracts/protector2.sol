@@ -37,7 +37,6 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
     /// @notice Changing the owner and the waitingToBeOwner
     function changeOwner(address _nextInline) external {
         require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
-        require(protectorWaitingToBeOwner != _nextInline, "protectorWaitingToBeOwner can't be the same");
         require(candidatesVotes[_nextInline] == 5, "Not all protectors agree with this address");
         //reinitializing to 0
         smartContractOwner = protectorWaitingToBeOwner;
