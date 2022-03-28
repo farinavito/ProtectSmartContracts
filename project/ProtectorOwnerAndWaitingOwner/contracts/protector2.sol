@@ -48,6 +48,8 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
     function voteCandidate(address _nextInLine) external {
         checkWhichProtector(msg.sender);
         require(alreadyVoted[msg.sender][_nextInLine] == false, "You have entered your vote");
+        //New
+        require(protectorWaitingToBeOwner != _nextInLine, "Voted address is in line for the owner");
         alreadyVoted[msg.sender][_nextInLine] = true;
         candidatesVotes[_nextInLine] += 1;
     }
