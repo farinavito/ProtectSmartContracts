@@ -6,12 +6,6 @@ pragma solidity 0.8.11;
 
 contract AddressProtector {
 
-    /// @notice Creating a protector
-    struct protectorStruct{
-        uint256 protectorId;
-        address protectorAddress;
-    }
-
     /// @notice Adding votes for candidates by protectors
     mapping (address => mapping(address => bool)) public alreadyVoted;
 
@@ -51,10 +45,7 @@ contract AddressProtector {
 
         //initialize the protectors
         for (uint256 i = 1; i <= 5; i++){
-            protectorStruct storage newProtector = protectors[i];
-            newProtector.protectorId = i;
-            newProtector.protectorAddress = allprotectorsaddresses[i - 1];
-            candidatesVotes[_protectorWaitingToBeOwner] += 1;
+            candidatesVotes[protectorWaitingToBeOwner] += 1;
             alreadyVoted[allprotectorsaddresses[i - 1]][_protectorWaitingToBeOwner] = true;
         }
     }
