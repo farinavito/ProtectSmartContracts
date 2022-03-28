@@ -25,13 +25,11 @@ contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner(){
     mapping(address => bool) public whitelist;
 
     /// @notice Adding address to the whitelist
-    //check if there already exists a whitelist address
     function addToWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = true;
     }
     
     /// @notice Removing address from the whitelist
-    //check if there already exists a whitelist address
     function removedFromWhitelist(address _address) external onlyprotectorOwner {
         whitelist[_address] = false;
     }
