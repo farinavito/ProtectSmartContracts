@@ -18,29 +18,53 @@ addressProtector5 = 7
 def deploy(ProtectorOwnerWaitingOwner, module_isolation):
     return ProtectorOwnerWaitingOwner.deploy({'from': accounts[0]})
 
+def test_acc1():
+    assert accounts[protectorOwnerAddress] == "0x33A4622B82D4c04a53e170c638B944ce27cffce3"
+
+def test_acc2():
+    assert accounts[protectorWaitingToBeOwnerAddress] == "0x0063046686E46Dc6F15918b61AE2B121458534a5"
+
+def test_acc3():
+    assert accounts[addressProtector1] == "0x21b42413bA931038f35e7A5224FaDb065d297Ba3"
+
+def test_acc4():
+    assert accounts[addressProtector2] == "0x46C0a5326E643E4f71D3149d50B48216e174Ae84"
+
+def test_acc5():
+    assert accounts[addressProtector3] == "0x807c47A89F720fe4Ee9b8343c286Fc886f43191b"
+
+def test_acc6():
+    assert accounts[addressProtector4] == "0x844ec86426F076647A5362706a04570A5965473B"
+
+def test_acc7():
+    assert accounts[addressProtector5] == "0x23BB2Bb6c340D4C91cAa478EdF6593fC5c4a6d4B"
+
+
 '''TESTING VOTECANDIDATE'''
 
 
-@pytest.mark.aaa
+
 def test_voteCandidate_1st_require_protectorOwnerAddress(deploy):
-    '''Checking if only the protector can access this function and not protectorOwnerAddress'''
-    deploy.voteCandidate(accounts[9], {'from': accounts[protectorOwnerAddress]})
-    '''
+    '''Checking if the protectorOwnerAddress cannot call voteCandidate'''
     try:
-        deploy.voteCandidate(accounts[9], 1, {'from': accounts[1]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protectorOwnerAddress]})
     except Exception as e:
-        assert e.message[50:] == "The id entered isn't equal to protector's id"
-    '''
+        assert e.message[50:] == "You don't have permissions"
 
 def test_voteCandidate_1st_require_protectorWaitingToBeOwnerAddress(deploy):
-    '''Checking if only the protector can access this function and not protectorWaitingToBeOwnerAddress'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector2]})
-    '''
+    '''Checking if the protectorOwnerAddress cannot call voteCandidate'''
     try:
-        deploy.voteCandidate(accounts[9], 1, {'from': accounts[1]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
-        assert e.message[50:] == "The id entered isn't equal to protector's id"
-    '''
+        assert e.message[50:] == "You don't have permissions"
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_voteCandidate_1st_require_protectors(deploy, protector):
+    '''Checking if only the protectors can call voteCandidate'''
+    deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+    assert deploy.candidatesVotes(accounts[9]) == 1
+   
+    
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_voteCandidate_2nd_require_(deploy, protector):
     '''Checking if the same protector cannot vote twice for the same candidate'''
