@@ -67,7 +67,25 @@ def test_alreadyvoted_protector6(deploy):
     '''check if protector6 will fail for already voted when initialize'''
     assert deploy.alreadyVoted(accounts[9], accounts[protectorWaitingToBeOwnerAddress]) == False
 
+def test_alreadyvoted_protector7(deploy):
+    '''check if protector6 will fail for already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[protectorOwnerAddress], accounts[protectorWaitingToBeOwnerAddress]) == False
+
+def test_alreadyvoted_protector8(deploy):
+    '''check if protector6 will fail for already voted when initialize'''
+    assert deploy.alreadyVoted(accounts[protectorWaitingToBeOwnerAddress], accounts[protectorWaitingToBeOwnerAddress]) == False
+
 def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
     '''testing if protectorWaitingToBeOwnerAddress is initialized to 5'''
     assert deploy.candidatesVotes(accounts[protectorWaitingToBeOwnerAddress]) == 5
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_candidatesVotes_initialized_addressProtector(deploy, protector):
+    '''testing if addressProtector is initialized to 0'''
+    assert deploy.candidatesVotes(accounts[protector]) == 0
+
+def test_candidatesVotes_initialized_protectorOwnerAddress(deploy):
+    '''testing if protectorOwnerAddress is initialized to 0'''
+    assert deploy.candidatesVotes(accounts[protectorOwnerAddress]) == 0
+
 
