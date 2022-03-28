@@ -19,7 +19,7 @@ contract AddressProtector {
     address public protectorWaitingToBeOwner;
 
     ///@notice Storing all protectors
-    address[] internal allprotectorsaddresses;
+    address[] public allprotectorsaddresses;
 
     /// @notice Emit all the addresses of the protectors
     event showAllProtectors(address indexed _address);

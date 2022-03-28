@@ -25,7 +25,7 @@ def deploy(AddressProtector, module_isolation):
 
 def test_protectorOwner_address(deploy):
     '''testing protectorOwner address'''
-    assert deploy.protectorOwner() == accounts[protectorOwnerAddress]
+    assert deploy.smartContractOwner() == accounts[protectorOwnerAddress]
 
 def test_protectorWaitingToBeOwnerAddress_address(deploy):
     '''testing protectorWaitingToBeOwnerAddress address'''
@@ -33,29 +33,35 @@ def test_protectorWaitingToBeOwnerAddress_address(deploy):
 
 def test_protector1_initialization_address(deploy):
     '''testing protector 1 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector1 - 2) == accounts[addressProtector1]
+    assert deploy.allprotectorsaddresses(addressProtector1 - 3) == accounts[addressProtector1]
 
-def test_protector1_initialization_address(deploy):
+def test_protector2_initialization_address(deploy):
     '''testing protector 2 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector2 - 2) == accounts[addressProtector2]
+    assert deploy.allprotectorsaddresses(addressProtector2 - 3) == accounts[addressProtector2]
 
-def test_protector1_initialization_address(deploy):
+def test_protector3_initialization_address(deploy):
     '''testing protector 3 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector3 - 2) == accounts[addressProtector3]
+    assert deploy.allprotectorsaddresses(addressProtector3 - 3) == accounts[addressProtector3]
 
-def test_protector1_initialization_address(deploy):
+def test_protector4_initialization_address(deploy):
     '''testing protector 4 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector4 - 2) == accounts[addressProtector4]
+    assert deploy.allprotectorsaddresses(addressProtector4 - 3) == accounts[addressProtector4]
 
-def test_protector1_initialization_address(deploy):
+def test_protector5_initialization_address(deploy):
     '''testing protector 5 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector5 - 2) == accounts[addressProtector5]
+    assert deploy.allprotectorsaddresses(addressProtector5 - 3) == accounts[addressProtector5]
 
-def test_protector6_initialization_address_0(deploy):
-    '''testing protector 5 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(accounts[9]) == "0x0000000000000000000000000000000000000000"
+def test_protector6_initialization_address(deploy):
+    '''testing protector 6 address when added to constructor'''
+    try:
+         deploy.allprotectorsaddresses(6) == "0x0000000000000000000000000000000000000000"
+    except Exception as e:
+        assert e.message[50:] == ""
 
-
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_protector_alreadyVoted_owner_true(deploy, protector):
+    '''checking if the the protector has initialized alreadyVoted to true'''
+    assert deploy.alreadyVoted(accounts[protector], accounts[protectorWaitingToBeOwnerAddress]) == True
 
 def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
     '''testing if protectorWaitingToBeOwnerAddress is initialized to 5'''
@@ -66,7 +72,7 @@ def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
 '''TESTING ALREADYVOTED'''
 
 
-@pytest.mark.aaa
+
 def test_alreadyvoted_protector1(deploy):
     '''check if protector1 has already voted when initialize'''
     assert deploy.alreadyVoted(accounts[addressProtector1], accounts[protectorWaitingToBeOwnerAddress]) == True
