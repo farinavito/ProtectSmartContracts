@@ -27,6 +27,13 @@ contract ProtectorOwnerWaitingOwner is AddressProtector() {
         }
     }
 
+    /// @notice Returning all addresses of protectors
+    function returnProtectors() external {
+        for (uint256 i = 0; i < 5; i++){
+            emit showAllProtectors(allprotectorsaddresses[i]);
+        }
+    }
+
     /// @notice Changing the owner and the waitingToBeOwner
     function changeOwner(address _nextInline) external {
         require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
