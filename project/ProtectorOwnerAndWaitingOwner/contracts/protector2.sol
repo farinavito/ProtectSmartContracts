@@ -5,7 +5,7 @@ pragma solidity 0.8.11;
 /// @author Farina Vito
 
 //import "https://github.com/farinavito/ProtectSmartContracts/blob/main/project/AddressProtector/contracts/protector.sol";
-import "./../AddressProtector/build/contracts/AddressProtector";
+import "./../AddressProtector/build/contracts/protector.sol";
 
 
 contract ProtectorOwnerWaitingOwner is AddressProtector() {

@@ -88,7 +88,7 @@ def test_candidatesVotes_initialized_protectorWaitingToBeOwnerAddress_5(deploy):
 '''TESTING ALREADYVOTED'''
 
 
-
+@pytest.mark.aaa
 def test_alreadyvoted_protector1(deploy):
     '''check if protector1 has already voted when initialize'''
     assert deploy.alreadyVoted(accounts[addressProtector1], accounts[protectorWaitingToBeOwnerAddress]) == True
