@@ -13,7 +13,7 @@ contract AddressProtector {
     mapping (address => uint256) public candidatesVotes;
         
     /// @notice Storing the owner's address
-    address public protectorOwner;
+    address public smartContractOwner;
 
     /// @notice Storing the next in line to be an owner
     address public protectorWaitingToBeOwner;
@@ -34,7 +34,7 @@ contract AddressProtector {
         address _protector4, 
         address _protector5 
         ){
-        protectorOwner = _protectorOwner;
+        smartContractOwner = _protectorOwner;
         protectorWaitingToBeOwner = _protectorWaitingToBeOwner;
 
         allprotectorsaddresses.push(_protector1);
