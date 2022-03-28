@@ -11,9 +11,6 @@ import "./../AddressProtector/build/contracts/protector.sol";
 contract ProtectorOwnerWaitingOwner is AddressProtector() {
     //maybe we should add functionality that you can't add protector for an owner
 
-    /// @notice Storing the created candidates
-    mapping (address => bool) public existingCandidates;
-
     /// @notice Checking if the input address is the protector
     function checkWhichProtector(address _address) internal view returns(uint256 _i){
         for (uint256 i = 0; i < 5; i++){
