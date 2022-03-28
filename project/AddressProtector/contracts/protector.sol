@@ -8,9 +8,6 @@ contract AddressProtector {
 
     /// @notice Adding votes for candidates by protectors
     mapping (address => mapping(address => bool)) public alreadyVoted;
-
-    /// @notice A unique identifier of the protector
-    mapping (uint256 => protectorStruct) public protectors;
     
     /// @notice Candidate for protectorWaitingToBeOwner
     mapping (address => uint256) public candidatesVotes;
@@ -46,7 +43,7 @@ contract AddressProtector {
         //initialize the protectors
         for (uint256 i = 1; i <= 5; i++){
             candidatesVotes[protectorWaitingToBeOwner] += 1;
-            alreadyVoted[allprotectorsaddresses[i - 1]][_protectorWaitingToBeOwner] = true;
+            alreadyVoted[allprotectorsaddresses[i - 1]][protectorWaitingToBeOwner] = true;
         }
     }
     
