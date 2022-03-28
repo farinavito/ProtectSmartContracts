@@ -21,6 +21,9 @@ contract AddressProtector {
     ///@notice Storing all protectors
     address[] internal allprotectorsaddresses;
 
+    /// @notice Emit all the addresses of the protectors
+    event showAllProtectors(address indexed _address);
+
 
     constructor (
         address _protectorOwner,
