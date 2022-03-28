@@ -7,7 +7,7 @@ pragma solidity 0.8.11;
 //import "https://github.com/farinavito/ProtectSmartContracts/blob/main/project/ProtectorOwnerAndWaitingOwner/contracts/protector2.sol";
 import "./../ProtectorOwnerAndWaitingOwner/contracts/protector2.sol";
 
-contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner {
+contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner(){
     
     /// @notice Only the whitelisted address can access
     modifier onlyWhitelisted() {
