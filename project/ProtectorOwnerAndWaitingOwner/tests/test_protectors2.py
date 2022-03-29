@@ -402,7 +402,28 @@ def test_changeOwner_2nd_require_part6(deploy):
     deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
     deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
     deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
-    assert deploy.protectorWaitingToBeOwner() ==  accounts[9]     
+    assert deploy.protectorWaitingToBeOwner() ==  accounts[9]   
+
+def test_changeOwner_candidateVotes_to_0(deploy):
+    '''Checking if the candidateVotes for smartContractOwner is modified'''
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
+    assert deploy.candidatesVotes(accounts[protectorOwnerAddress]) ==  0  
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_changeOwner_alreadyVoted_to_false(deploy, protector):
+    '''Checking if the protectors alreadyVoted changes to false'''
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
+    assert deploy.alreadyVoted(accounts[protector], accounts[protectorOwnerAddress]) ==  False  
 
 def test_changeOwner_protectorOwner_changed(deploy):
     '''Checking if the protectorOwner is modified'''
