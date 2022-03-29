@@ -292,16 +292,115 @@ def test_changeOwner_1st_require_true(deploy):
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
-@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_changeOwner_3rd_require(deploy, protector):
+def test_changeOwner_2nd_require_part1(deploy):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
-    assert deploy.changeOwner(accounts[protectorNextOwner], {'from': accounts[protector]}) == "ok"
-    '''
     try:
-        deploy.changeOwner(accounts[protectorNextOwner], {'from': accounts[protector]})        
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
-    '''
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_changeOwner_2nd_require_part2(deploy, protector):
+    '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+@pytest.mark.parametrize("protector2",  [addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_changeOwner_2nd_require_part3_1(deploy, protector2):
+    '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+@pytest.mark.parametrize("protector2",  [addressProtector2, addressProtector4, addressProtector5])
+def test_changeowner_2nd_require_part3_2(deploy, protector2):
+    '''checking if this function can be called after 3 or more protectors agree'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+@pytest.mark.parametrize("protector2",  [addressProtector2, addressProtector5])
+def test_changeowner_2nd_require_part3_3(deploy, protector2):
+    '''checking if this function can be called after 3 or more protectors agree'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+def test_changeowner_2nd_require_part3_4(deploy):
+    '''checking if this function can be called after 3 or more protectors agree'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+@pytest.mark.parametrize("protector",  [addressProtector3, addressProtector4, addressProtector5])
+def test_changeOwner_2nd_require_part4_1(deploy, protector):
+    '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2])
+@pytest.mark.parametrize("protector2",  [addressProtector4, addressProtector5])
+def test_changeOwner_2nd_require_part4_2(deploy, protector, protector2):
+    '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+def test_changeOwner_2nd_require_part4_3(deploy):
+    '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+def test_changeOwner_2nd_require_part5(deploy):
+    '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
+def test_changeOwner_2nd_require_part6(deploy):
+    '''checking if the owner changes'''
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
+    deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+    assert deploy.protectorWaitingToBeOwner() ==  accounts[9]     
+
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_changeOwner_protectorOwner_changed(deploy, protector):
