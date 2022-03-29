@@ -25,11 +25,8 @@ def deploy(ProtectorWhitelisted, module_isolation):
 @pytest.mark.parametrize("not_owner",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_addToWhitelist_onlyprotectorOwner(deploy, not_owner):
     '''checking if only the protectorOwner can access this function'''
-    assert deploy.addToWhitelist(accounts[8], {'from': accounts[not_owner]})
-    '''
     with brownie.reverts("You are not the owner"):
         deploy.addToWhitelist(accounts[8], {'from': accounts[not_owner]})
-    '''
     
 def test_addToWhitelist_whitelist_true(deploy):
     '''checking if the address is added to the whitelist'''
