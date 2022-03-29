@@ -153,7 +153,7 @@ def test_voteCandidate_2nd_require_continue(deploy, protector):
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
-        deploy.changeOwner(accounts[8])
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
     except Exception as e:
         assert e.message[50:] == "You have entered your vote"
@@ -210,32 +210,23 @@ def test_removeVote_1st_require_protectors(deploy, protector):
     assert deploy.candidatesVotes(accounts[9]) == 0
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_removeVote_2nd_require_no_vote(deploy, protector):
-    '''Checking if the same protector cannot vote twice for the same candidate when you haven't vote for it'''
-    deploy.removeVote(accounts[protectorNextOwner], protector - 1, {'from': accounts[protector]})
-    deploy.removeVote(accounts[protectorNextOwner], protector - 1, {'from': accounts[protector]})
-    '''
+def test_removeVote_2nd_require_(deploy, protector):
+    '''Checking if the same protector cannot vote twice for the same candidate'''
     try:
-        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
-        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], {'from': accounts[protector]})
     except Exception as e:
-        assert e.message[50:] == "You have entered your vote"
-    '''
+        assert e.message[50:] == "You haven't voted for this address"
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_removeVote_2nd_require_prior_vote(deploy, protector):
-    '''Checking if the same protector cannot vote twice for the same candidate'''
-    deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
-    deploy.removeVote(accounts[protectorNextOwner], protector - 1, {'from': accounts[protector]})
-    deploy.removeVote(accounts[protectorNextOwner], protector - 1, {'from': accounts[protector]})
-    '''
+def test_removeVote_2nd_require_continue(deploy, protector):
+    '''Checking if the vote cannot go to the protectorNextOwner'''
     try:
-        deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
-        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
-        deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], {'from': accounts[protector]})
     except Exception as e:
-        assert e.message[50:] == "You have entered your vote"
-    '''
+        assert e.message[50:] == "You haven't voted for this address"
+
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_removeVote_alreadyVoted(deploy, protector):
     '''check if alreadyVoted returns false after the protector removes its vote'''
