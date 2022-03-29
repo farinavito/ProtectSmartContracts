@@ -5,7 +5,7 @@ pragma solidity 0.8.11;
 /// @author Farina Vito
 
 //import "https://github.com/farinavito/ProtectSmartContracts/blob/main/project/ProtectorOwnerAndWaitingOwner/contracts/protector2.sol";
-import "./../ProtectorOwnerAndWaitingOwner/contracts/protector2.sol";
+import "farinavito/ProtectSmartContracts@1.0.0/project/ProtectorOwnerAndWaitingOwner/contracts/protector2.sol";
 
 contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner(){
     
