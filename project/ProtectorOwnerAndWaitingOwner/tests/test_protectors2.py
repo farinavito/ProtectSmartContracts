@@ -444,3 +444,34 @@ def test_changeOwner_protectorWaitingToBeOwner_changed(deploy):
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
     deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
     assert deploy.protectorWaitingToBeOwner() == accounts[8]
+
+
+
+    '''TESTING RETURNPROTECTORS'''
+
+
+
+def test_returnProtectors_1(deploy):
+    '''Checking if the returnProtectors returns address of protector 1'''
+    function_called = deploy.returnProtectors()
+    assert function_called.events[0][0]["_address"] == accounts[addressProtector1]
+
+def test_returnProtectors_2(deploy):
+    '''Checking if the returnProtectors returns address of protector 2'''
+    function_called = deploy.returnProtectors()
+    assert function_called.events[1][0]["_address"] == accounts[addressProtector2]
+
+def test_returnProtectors_3(deploy):
+    '''Checking if the returnProtectors returns address of protector 3'''
+    function_called = deploy.returnProtectors()
+    assert function_called.events[2][0]["_address"] == accounts[addressProtector3]
+
+def test_returnProtectors_4(deploy):
+    '''Checking if the returnProtectors returns address of protector 4'''
+    function_called = deploy.returnProtectors()
+    assert function_called.events[3][0]["_address"] == accounts[addressProtector4]
+
+def test_returnProtectors_5(deploy):
+    '''Checking if the returnProtectors returns address of protector 5'''
+    function_called = deploy.returnProtectors()
+    assert function_called.events[4][0]["_address"] == accounts[addressProtector5]
