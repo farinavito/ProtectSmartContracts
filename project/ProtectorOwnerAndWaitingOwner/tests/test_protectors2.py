@@ -293,17 +293,6 @@ def test_changeOwner_1st_require_true(deploy):
         assert e.message[50:] == "Not all protectors agree with this address"
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_changeOwner_2nd_require(deploy, protector):
-    '''checking if the protectorWaitingToBeOwner is not the same as before'''
-    assert deploy.changeOwner(accounts[protectorNextOwner], {'from': accounts[protector]}) == "ok"
-    '''
-    try:
-        deploy.changeOwner(accounts[protectorNextOwner], {'from': accounts[protector]})        
-    except Exception as e:
-        assert e.message[50:] == "protectorWaitingToBeOwner can't be the same"
-    '''
-
-@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_changeOwner_3rd_require(deploy, protector):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
     assert deploy.changeOwner(accounts[protectorNextOwner], {'from': accounts[protector]}) == "ok"
