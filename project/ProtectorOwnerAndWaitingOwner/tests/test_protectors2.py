@@ -277,15 +277,21 @@ def test_removeVote_candidates_decrement_all_protectors(deploy):
 
 
 
-def test_changeOwner_1st_require(deploy):
-    '''checking if the user has permissions to change the owner'''
-    assert deploy.changeOwner(accounts[9], {'from': accounts[protectorOwnerAddress]}) == "ok"
-    '''
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5, protectorOwnerAddress])
+def test_changeOwner_1st_require_false(deploy, protector):
+    '''checking if these users don't have permissions to change the owner'''
     try:
-        deploy.changeOwner(accounts[9], {'from': accounts[1]})        
+        deploy.changeOwner(accounts[9], {'from': accounts[protector]})        
     except Exception as e:
         assert e.message[50:] == "You don't have permissions"
-    '''
+
+def test_changeOwner_1st_require_true(deploy):
+    '''checking if the protectorNextOwner can access this function'''
+    try:
+        deploy.changeOwner(accounts[9],  {'from': accounts[protectorNextOwner]})
+    except Exception as e:
+        assert e.message[50:] == "Not all protectors agree with this address"
+
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_changeOwner_2nd_require(deploy, protector):
     '''checking if the protectorWaitingToBeOwner is not the same as before'''
