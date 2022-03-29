@@ -209,26 +209,6 @@ def test_removeVote_1st_require_protectors(deploy, protector):
     deploy.removeVote(accounts[9], {'from': accounts[protector]})
     assert deploy.candidatesVotes(accounts[9]) == 0
 
-def test_removeVote_1st_require_protectorOwnerAddress(deploy):
-    '''Checking if only the protector can access this function and not protectorOwnerAddress'''
-    deploy.removeVote(accounts[9], 1, {'from': accounts[protectorOwnerAddress]})
-    '''
-    try:
-        deploy.removeVote(accounts[9], 1, {'from': accounts[protectorOwnerAddress]})
-    except Exception as e:
-        assert e.message[50:] == "The id entered isn't equal to protector's id"
-    '''
-
-def test_removeVote_1st_require_protectorNextOwner(deploy):
-    '''Checking if only the protector can access this function and not protectorNextOwner '''
-    deploy.removeVote(accounts[9], 1, {'from': accounts[protectorNextOwner]})
-    '''
-    try:
-        deploy.removeVote(accounts[9], 1, {'from': accounts[protectorNextOwner]})
-    except Exception as e:
-        assert e.message[50:] == "The id entered isn't equal to protector's id"
-
-    '''
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_removeVote_2nd_require_no_vote(deploy, protector):
     '''Checking if the same protector cannot vote twice for the same candidate when you haven't vote for it'''
