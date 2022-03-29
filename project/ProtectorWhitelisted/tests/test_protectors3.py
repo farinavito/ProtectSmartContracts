@@ -13,8 +13,8 @@ addressProtector4 = 6
 addressProtector5 = 7
 
 @pytest.fixture()
-def deploy(AddressProtector, module_isolation):
-    return AddressProtector.deploy(accounts[protectorOwnerAddress], accounts[protectorWaitingToBeOwnerAddress], accounts[addressProtector1], accounts[addressProtector2], accounts[addressProtector3], accounts[addressProtector4], accounts[addressProtector5], {'from': accounts[0]})
+def deploy(ProtectorWhitelisted, module_isolation):
+    return ProtectorWhitelisted.deploy({'from': accounts[0]})
 
 
 
