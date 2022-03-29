@@ -4,6 +4,11 @@ pragma solidity 0.8.11;
 /// @title A way to reduce the risk in smart contracts when one address is compromised.
 /// @author Farina Vito
 
+//what can I change?
+// 1. allprotectorsaddresses -> internal
+// 2. for loop -> i something smaller than uint256 -> constructor, checkWhichProtector, returnProtector, changeOwner,
+// 3. checkWhichProtector -> returns (uint256 _i), _i could be something smaller
+
 contract AddressProtector {
 
     /// @notice Adding votes for candidates by protectors
