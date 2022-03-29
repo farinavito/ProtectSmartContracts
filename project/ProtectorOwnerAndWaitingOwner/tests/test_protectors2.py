@@ -184,6 +184,7 @@ def test_voteCandidate_increase_candidatesVotes_protectors_all(deploy):
 '''TESTING REMOVEVOTE'''   
 
 
+
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_removeVote_1st_require_protectorOwnerAddress(deploy, protector):
     '''Checking if the protectorOwnerAddress cannot call removeVoteCandidate'''
@@ -230,23 +231,23 @@ def test_removeVote_2nd_require_continue(deploy, protector):
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_removeVote_alreadyVoted(deploy, protector):
     '''check if alreadyVoted returns false after the protector removes its vote'''
-    deploy.voteCandidate(accounts[9], protector - 1, {'from': accounts[protector]})
-    deploy.removeVote(accounts[9], protector - 1, {'from': accounts[protector]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+    deploy.removeVote(accounts[9], {'from': accounts[protector]})
     assert deploy.alreadyVoted(accounts[protector], accounts[9]) == False
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_voteCandidate_alreadyVoted_after_remove_all_protectors(deploy, protector):
+def test_removeVote_alreadyVoted_after_remove_all_protectors(deploy, protector):
     '''check if alreadyVoted returns false after the protector removes its vote'''
-    deploy.voteCandidate(accounts[9], 1, {'from': accounts[addressProtector1]})
-    deploy.voteCandidate(accounts[9], 2, {'from': accounts[addressProtector2]})
-    deploy.voteCandidate(accounts[9], 3, {'from': accounts[addressProtector3]})
-    deploy.voteCandidate(accounts[9], 4, {'from': accounts[addressProtector4]})
-    deploy.voteCandidate(accounts[9], 5, {'from': accounts[addressProtector5]})
-    deploy.removeVote(accounts[9], 1, {'from': accounts[addressProtector1]})
-    deploy.removeVote(accounts[9], 2, {'from': accounts[addressProtector2]})
-    deploy.removeVote(accounts[9], 3, {'from': accounts[addressProtector3]})
-    deploy.removeVote(accounts[9], 4, {'from': accounts[addressProtector4]})
-    deploy.removeVote(accounts[9], 5, {'from': accounts[addressProtector5]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
+    deploy.removeVote(accounts[9], {'from': accounts[addressProtector1]})
+    deploy.removeVote(accounts[9], {'from': accounts[addressProtector2]})
+    deploy.removeVote(accounts[9], {'from': accounts[addressProtector3]})
+    deploy.removeVote(accounts[9], {'from': accounts[addressProtector4]})
+    deploy.removeVote(accounts[9], {'from': accounts[addressProtector5]})
     assert deploy.alreadyVoted(accounts[protector], accounts[9]) == False
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
