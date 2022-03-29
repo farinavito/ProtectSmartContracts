@@ -379,14 +379,17 @@ def test_changeOwner_2nd_require_part4_3(deploy):
         deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
-
-def test_changeOwner_2nd_require_part5(deploy):
+@pytest.mark.aaa        
+@pytest.mark.parametrize("protector", [[3, 4, 5, 6], [3, 4, 5, 7], [3, 4, 6, 5], [3, 4, 6, 7], [3, 4, 7, 5], [3, 4, 7, 6], [3, 5, 4, 6], [3, 5, 4, 7], [3, 5, 6, 4], [3, 5, 6, 7], [3, 5, 7, 4], [3, 5, 7, 6], [3, 6, 4, 5], [3, 6, 4, 7], [3, 6, 5, 4], [3, 6, 5, 7], [3, 6, 7, 4], [3, 6, 7, 5], [3, 7, 4, 5], [3, 7, 4, 6], [3, 7, 5, 4], [3, 7, 5, 6], [3, 7, 6, 4], [3, 7, 6, 5], [4, 3, 5, 6], [4, 3, 5, 7], [4, 3, 6, 5], [4, 3, 6, 7], [4, 3, 7, 5], [4, 3, 7, 6], [4, 5, 3, 6], [4, 5, 3, 7], [4, 5, 6, 3], [4, 5, 6, 7], [4, 5, 7, 3], [4, 5, 7, 6], [4, 6, 3, 5], [4, 6, 3, 7], [4, 6, 5, 3], [4, 6, 5, 7], [4, 6, 7, 3], [4, 6, 7, 5], [4, 7, 3, 5], [4, 7, 3, 6], [4, 7, 5, 3], [4, 7, 5, 6], [4, 7, 
+6, 3], [4, 7, 6, 5], [5, 3, 4, 6], [5, 3, 4, 7], [5, 3, 6, 4], [5, 3, 6, 7], [5, 3, 7, 4], [5, 3, 7, 6], [5, 4, 3, 6], [5, 4, 3, 7], [5, 4, 6, 3], [5, 4, 6, 7], [5, 4, 7, 3], [5, 4, 7, 6], [5, 6, 3, 4], [5, 6, 3, 7], [5, 6, 4, 3], [5, 6, 4, 7], [5, 6, 7, 3], [5, 6, 7, 4], [5, 7, 3, 4], [5, 7, 3, 6], [5, 7, 4, 3], [5, 7, 4, 6], [5, 7, 6, 3], [5, 7, 6, 4], [6, 3, 4, 5], [6, 3, 4, 7], [6, 3, 5, 4], [6, 3, 5, 7], [6, 3, 7, 4], [6, 3, 7, 5], [6, 4, 3, 5], [6, 4, 3, 7], [6, 4, 5, 3], [6, 4, 5, 7], [6, 4, 7, 3], [6, 4, 7, 5], [6, 5, 3, 4], [6, 5, 3, 7], [6, 5, 4, 3], [6, 5, 4, 7], [6, 5, 7, 3], [6, 5, 7, 4], [6, 7, 3, 4], [6, 7, 3, 5], [6, 7, 4, 3], [6, 7, 4, 5], [6, 7, 5, 3], [6, 7, 5, 4], [7, 3, 4, 5], [7, 3, 4, 6], [7, 3, 5, 4], [7, 3, 5, 6], [7, 3, 6, 4], [7, 3, 6, 5], [7, 4, 3, 5], [7, 4, 3, 6], [7, 4, 5, 
+3], [7, 4, 5, 6], [7, 4, 6, 3], [7, 4, 6, 5], [7, 5, 3, 4], [7, 5, 3, 6], [7, 5, 4, 3], [7, 5, 4, 6], [7, 5, 6, 3], [7, 5, 6, 4], [7, 6, 3, 4], [7, 6, 3, 5], [7, 6, 4, 3], [7, 6, 4, 5], [7, 6, 5, 3], [7, 6, 5, 4]])
+def test_changeOwner_2nd_require_part5(deploy, protector):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
     try:
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector[0]]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector[1]]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector[2]]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector[3]]})
         deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
