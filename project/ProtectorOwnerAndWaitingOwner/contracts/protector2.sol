@@ -36,12 +36,12 @@ contract ProtectorOwnerWaitingOwner is AddressProtector(0x33A4622B82D4c04a53e170
         require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
         require(candidatesVotes[_nextInline] == 5, "Not all protectors agree with this address");
         //reinitializing to 0
-        candidatesVotes[smartContractOwner] = 0;
+        candidatesVotes[smartcontractOwner] = 0;
         for (uint256 i = 0; i < 5; i++){
-            alreadyVoted[allprotectorsaddresses[i]][smartContractOwner] = false;
+            alreadyVoted[allprotectorsaddresses[i]][smartcontractOwner] = false;
         }
 
-        smartContractOwner = protectorWaitingToBeOwner;
+        smartcontractOwner = protectorWaitingToBeOwner;
         protectorWaitingToBeOwner = _nextInline;
     }
     

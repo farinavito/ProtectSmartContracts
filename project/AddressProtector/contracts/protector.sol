@@ -13,7 +13,7 @@ contract AddressProtector {
     mapping (address => uint256) public candidatesVotes;
         
     /// @notice Storing the owner's address
-    address public smartContractOwner;
+    address public smartcontractOwner;
 
     /// @notice Storing the next in line to be an owner
     address public protectorWaitingToBeOwner;

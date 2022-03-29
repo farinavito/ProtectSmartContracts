@@ -47,7 +47,7 @@ def test_acc7():
 
 def test_protectorOwner_address(deploy):
     '''testing protectorOwner address'''
-    assert deploy.smartContractOwner() == accounts[protectorOwnerAddress]
+    assert deploy.smartcontractOwner() == accounts[protectorOwnerAddress]
 
 def test_protectorWaitingToBeOwnerAddress_address(deploy):
     '''testing protectorWaitingToBeOwnerAddress address'''
@@ -433,7 +433,7 @@ def test_changeOwner_protectorOwner_changed(deploy):
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
     deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
-    assert deploy.smartContractOwner() ==  accounts[protectorNextOwner] 
+    assert deploy.smartcontractOwner() ==  accounts[protectorNextOwner] 
 
 def test_changeOwner_protectorWaitingToBeOwner_changed(deploy):
     '''Checking if the protectorWaitingToBeOwner is modified'''

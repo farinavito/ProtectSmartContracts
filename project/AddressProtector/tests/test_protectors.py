@@ -25,7 +25,7 @@ def deploy(AddressProtector, module_isolation):
 
 def test_protectorOwner_address(deploy):
     '''testing protectorOwner address'''
-    assert deploy.smartContractOwner() == accounts[protectorOwnerAddress]
+    assert deploy.smartcontractOwner() == accounts[protectorOwnerAddress]
 
 def test_protectorWaitingToBeOwnerAddress_address(deploy):
     '''testing protectorWaitingToBeOwnerAddress address'''
