@@ -184,6 +184,30 @@ def test_voteCandidate_increase_candidatesVotes_protectors_all(deploy):
 '''TESTING REMOVEVOTE'''   
 
 
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_removeVote_1st_require_protectorOwnerAddress(deploy, protector):
+    '''Checking if the protectorOwnerAddress cannot call removeVoteCandidate'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], {'from': accounts[protectorOwnerAddress]})
+    except Exception as e:
+        assert e.message[50:] == "You don't have permissions"
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_removeVote_1st_require_protectorNextOwner(deploy, protector):
+    '''Checking if the protectorOwnerAddress cannot call removeVoteCandidate'''
+    try:
+        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+        deploy.removeVote(accounts[9], {'from': accounts[protectorNextOwner]})
+    except Exception as e:
+        assert e.message[50:] == "You don't have permissions"
+
+@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
+def test_removeVote_1st_require_protectors(deploy, protector):
+    '''Checking if only the protectors can call voteCandidate'''
+    deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+    deploy.removeVote(accounts[9], {'from': accounts[protector]})
+    assert deploy.candidatesVotes(accounts[9]) == 0
 
 def test_removeVote_1st_require_protectorOwnerAddress(deploy):
     '''Checking if only the protector can access this function and not protectorOwnerAddress'''
