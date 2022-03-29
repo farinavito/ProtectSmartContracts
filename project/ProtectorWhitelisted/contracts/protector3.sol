@@ -6,8 +6,9 @@ pragma solidity 0.8.11;
 
 //import "https://github.com/farinavito/ProtectSmartContracts/blob/main/project/ProtectorOwnerAndWaitingOwner/contracts/protector2.sol";
 import "farinavito/ProtectSmartContracts@1.0.0/project/ProtectorOwnerAndWaitingOwner/contracts/protector2.sol";
+//import "farinavito/ProtectSmartContracts@1.0.0/project/AddressProtector/contracts/protector.sol";
 
-contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner(){
+contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner{
     
     /// @notice Only the whitelisted address can access
     modifier onlyWhitelisted() {
@@ -17,7 +18,7 @@ contract ProtectorWhitelisted is ProtectorOwnerWaitingOwner(){
 
     /// @notice Only the protectorOwner can access
     modifier onlyprotectorOwner(){
-        require(msg.sender == smartContractOwner, "You are not the owner");
+        require(msg.sender == smartcontractOwner, "You are not the owner");
         _;
     }
 

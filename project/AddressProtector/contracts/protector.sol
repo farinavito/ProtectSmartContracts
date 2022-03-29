@@ -34,7 +34,7 @@ contract AddressProtector {
         address _protector4, 
         address _protector5 
         ){
-        smartContractOwner = _protectorOwner;
+        smartcontractOwner = _protectorOwner;
         protectorWaitingToBeOwner = _protectorWaitingToBeOwner;
 
         allprotectorsaddresses.push(_protector1);
