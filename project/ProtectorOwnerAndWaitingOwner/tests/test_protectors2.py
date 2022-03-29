@@ -379,7 +379,7 @@ def test_changeOwner_2nd_require_part4_3(deploy):
         deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
-@pytest.mark.aaa        
+      
 @pytest.mark.parametrize("protector", [[3, 4, 5, 6], [3, 4, 5, 7], [3, 4, 6, 5], [3, 4, 6, 7], [3, 4, 7, 5], [3, 4, 7, 6], [3, 5, 4, 6], [3, 5, 4, 7], [3, 5, 6, 4], [3, 5, 6, 7], [3, 5, 7, 4], [3, 5, 7, 6], [3, 6, 4, 5], [3, 6, 4, 7], [3, 6, 5, 4], [3, 6, 5, 7], [3, 6, 7, 4], [3, 6, 7, 5], [3, 7, 4, 5], [3, 7, 4, 6], [3, 7, 5, 4], [3, 7, 5, 6], [3, 7, 6, 4], [3, 7, 6, 5], [4, 3, 5, 6], [4, 3, 5, 7], [4, 3, 6, 5], [4, 3, 6, 7], [4, 3, 7, 5], [4, 3, 7, 6], [4, 5, 3, 6], [4, 5, 3, 7], [4, 5, 6, 3], [4, 5, 6, 7], [4, 5, 7, 3], [4, 5, 7, 6], [4, 6, 3, 5], [4, 6, 3, 7], [4, 6, 5, 3], [4, 6, 5, 7], [4, 6, 7, 3], [4, 6, 7, 5], [4, 7, 3, 5], [4, 7, 3, 6], [4, 7, 5, 3], [4, 7, 5, 6], [4, 7, 
 6, 3], [4, 7, 6, 5], [5, 3, 4, 6], [5, 3, 4, 7], [5, 3, 6, 4], [5, 3, 6, 7], [5, 3, 7, 4], [5, 3, 7, 6], [5, 4, 3, 6], [5, 4, 3, 7], [5, 4, 6, 3], [5, 4, 6, 7], [5, 4, 7, 3], [5, 4, 7, 6], [5, 6, 3, 4], [5, 6, 3, 7], [5, 6, 4, 3], [5, 6, 4, 7], [5, 6, 7, 3], [5, 6, 7, 4], [5, 7, 3, 4], [5, 7, 3, 6], [5, 7, 4, 3], [5, 7, 4, 6], [5, 7, 6, 3], [5, 7, 6, 4], [6, 3, 4, 5], [6, 3, 4, 7], [6, 3, 5, 4], [6, 3, 5, 7], [6, 3, 7, 4], [6, 3, 7, 5], [6, 4, 3, 5], [6, 4, 3, 7], [6, 4, 5, 3], [6, 4, 5, 7], [6, 4, 7, 3], [6, 4, 7, 5], [6, 5, 3, 4], [6, 5, 3, 7], [6, 5, 4, 3], [6, 5, 4, 7], [6, 5, 7, 3], [6, 5, 7, 4], [6, 7, 3, 4], [6, 7, 3, 5], [6, 7, 4, 3], [6, 7, 4, 5], [6, 7, 5, 3], [6, 7, 5, 4], [7, 3, 4, 5], [7, 3, 4, 6], [7, 3, 5, 4], [7, 3, 5, 6], [7, 3, 6, 4], [7, 3, 6, 5], [7, 4, 3, 5], [7, 4, 3, 6], [7, 4, 5, 
 3], [7, 4, 5, 6], [7, 4, 6, 3], [7, 4, 6, 5], [7, 5, 3, 4], [7, 5, 3, 6], [7, 5, 4, 3], [7, 5, 4, 6], [7, 5, 6, 3], [7, 5, 6, 4], [7, 6, 3, 4], [7, 6, 3, 5], [7, 6, 4, 3], [7, 6, 4, 5], [7, 6, 5, 3], [7, 6, 5, 4]])
@@ -404,15 +404,22 @@ def test_changeOwner_2nd_require_part6(deploy):
     deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
     assert deploy.protectorWaitingToBeOwner() ==  accounts[9]     
 
-
-@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_changeOwner_protectorOwner_changed(deploy, protector):
+def test_changeOwner_protectorOwner_changed(deploy):
     '''Checking if the protectorOwner is modified'''
-    deploy.changeOwner(accounts[8], {'from': accounts[protector]})
-    assert deploy.protectorOwner() == accounts[protectorNextOwner]
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
+    assert deploy.smartContractOwner() ==  accounts[protectorNextOwner] 
 
-@pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_changeOwner_protectorWaitingToBeOwner_changed(deploy, protector):
+def test_changeOwner_protectorWaitingToBeOwner_changed(deploy):
     '''Checking if the protectorWaitingToBeOwner is modified'''
-    deploy.changeOwner(accounts[8], {'from': accounts[protector]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
+    deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
     assert deploy.protectorWaitingToBeOwner() == accounts[8]
