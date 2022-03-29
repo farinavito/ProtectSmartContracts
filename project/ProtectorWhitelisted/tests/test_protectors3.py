@@ -21,13 +21,13 @@ def deploy(ProtectorWhitelisted, module_isolation):
 '''TESTING ADDTOWHITELIST'''
 
 
-@pytest.mark.aaa
+
 @pytest.mark.parametrize("not_owner",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_addToWhitelist_onlyprotectorOwner(deploy, not_owner):
     '''checking if only the protectorOwner can access this function'''
     with brownie.reverts("You are not the owner"):
         deploy.addToWhitelist(accounts[8], {'from': accounts[not_owner]})
-    
+  
 def test_addToWhitelist_whitelist_true(deploy):
     '''checking if the address is added to the whitelist'''
     deploy.addToWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
@@ -47,15 +47,13 @@ def test_addToWhitelist_multipletimes(deploy):
 
 '''TESTING REMOVEFROMWHITELIST'''
 
-
+@pytest.mark.aaa 
 @pytest.mark.parametrize("not_owner",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_removeFromWhitelist_onlyprotectorOwner(deploy, not_owner):
+def test_removedFromWhitelist_onlyprotectorOwner(deploy, not_owner):
     '''checking if only the protectorOwner can access this function'''
-    assert deploy.removeFromWhitelist(accounts[8], {'from': accounts[not_owner]})
-    '''
     with brownie.reverts("You are not the owner"):
-        deploy.removeFromWhitelist(accounts[8], {'from': accounts[not_owner]})
-    '''
+        deploy.removedFromWhitelist(accounts[8], {'from': accounts[not_owner]})
+    
 
 def test_removeFromWhitelist_whitelist(deploy):
     '''checking if the address is added to the whitelist'''
