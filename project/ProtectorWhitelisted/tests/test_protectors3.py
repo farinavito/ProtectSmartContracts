@@ -47,22 +47,22 @@ def test_addToWhitelist_multipletimes(deploy):
 
 '''TESTING REMOVEFROMWHITELIST'''
 
-@pytest.mark.aaa 
+
+
 @pytest.mark.parametrize("not_owner",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_removedFromWhitelist_onlyprotectorOwner(deploy, not_owner):
     '''checking if only the protectorOwner can access this function'''
     with brownie.reverts("You are not the owner"):
-        deploy.removedFromWhitelist(accounts[8], {'from': accounts[not_owner]})
-    
+        deploy.removedFromWhitelist(accounts[8], {'from': accounts[not_owner]}) 
 
 def test_removeFromWhitelist_whitelist(deploy):
-    '''checking if the address is added to the whitelist'''
+    '''checking if the address is removed to the whitelist'''
     deploy.addToWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
-    deploy.removeFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
+    deploy.removedFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
     assert deploy.whitelist(accounts[8]) == False
 
 def test_removeFromWhitelist_multipletimes(deploy):
     '''checking if the whitelist returns false when address removed multiple times'''
-    deploy.removeFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
-    deploy.removeFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
+    deploy.removedFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
+    deploy.removedFromWhitelist(accounts[8], {'from': accounts[protectorOwnerAddress]})
     assert deploy.whitelist(accounts[8]) == False
