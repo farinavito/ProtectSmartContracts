@@ -101,10 +101,10 @@ def test_voteCandidate_1st_require_protectorOwnerAddress(deploy):
     except Exception as e:
         assert e.message[50:] == "You don't have permissions"
 
-def test_voteCandidate_1st_require_protectorNextOwner(deploy):
+def test_voteCandidate_1st_require_protectorWaitingToBeOwnerAddress(deploy):
     '''Checking if the protectorOwnerAddress cannot call voteCandidate'''
     try:
-        deploy.voteCandidate(accounts[9], {'from': accounts[protectorNextOwner]})
+        deploy.voteCandidate(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "You don't have permissions"
 
@@ -125,14 +125,14 @@ def test_voteCandidate_2nd_require_(deploy, protector):
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_voteCandidate_2nd_require_continue(deploy, protector):
-    '''Checking if the vote cannot go to the protectorNextOwner'''
+    '''Checking if the vote cannot go to the protectorWaitingToBeOwnerAddress'''
     try:
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
     except Exception as e:
         assert e.message[50:] == "You have entered your vote"
@@ -174,11 +174,11 @@ def test_removeVote_1st_require_protectorOwnerAddress(deploy, protector):
         assert e.message[50:] == "You don't have permissions"
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
-def test_removeVote_1st_require_protectorNextOwner(deploy, protector):
+def test_removeVote_1st_require_protectorWaitingToBeOwnerAddress(deploy, protector):
     '''Checking if the protectorOwnerAddress cannot call removeVoteCandidate'''
     try:
         deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
-        deploy.removeVote(accounts[9], {'from': accounts[protectorNextOwner]})
+        deploy.removeVote(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "You don't have permissions"
 
@@ -201,7 +201,7 @@ def test_removeVote_2nd_require_(deploy, protector):
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_removeVote_2nd_require_continue(deploy, protector):
-    '''Checking if the vote cannot go to the protectorNextOwner'''
+    '''Checking if the vote cannot go to the protectorWaitingToBeOwnerAddress'''
     try:
         deploy.removeVote(accounts[9], {'from': accounts[protector]})
     except Exception as e:
@@ -265,16 +265,16 @@ def test_changeOwner_1st_require_false(deploy, protector):
         assert e.message[50:] == "You don't have permissions"
 
 def test_changeOwner_1st_require_true(deploy):
-    '''checking if the protectorNextOwner can access this function'''
+    '''checking if the protectorWaitingToBeOwnerAddress can access this function'''
     try:
-        deploy.changeOwner(accounts[9],  {'from': accounts[protectorNextOwner]})
+        deploy.changeOwner(accounts[9],  {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
 def test_changeOwner_2nd_require_part1(deploy):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
     try:
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -283,7 +283,7 @@ def test_changeOwner_2nd_require_part2(deploy, protector):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
     try:
         deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -293,7 +293,7 @@ def test_changeOwner_2nd_require_part3_1(deploy, protector2):
     try:
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -303,7 +303,7 @@ def test_changeowner_2nd_require_part3_2(deploy, protector2):
     try:
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -313,7 +313,7 @@ def test_changeowner_2nd_require_part3_3(deploy, protector2):
     try:
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -322,7 +322,7 @@ def test_changeowner_2nd_require_part3_4(deploy):
     try:
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -333,7 +333,7 @@ def test_changeOwner_2nd_require_part4_1(deploy, protector):
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -345,7 +345,7 @@ def test_changeOwner_2nd_require_part4_2(deploy, protector, protector2):
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -355,7 +355,7 @@ def test_changeOwner_2nd_require_part4_3(deploy):
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
         deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
       
@@ -369,7 +369,7 @@ def test_changeOwner_2nd_require_part5(deploy, protector):
         deploy.voteCandidate(accounts[9], {'from': accounts[protector[1]]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector[2]]})
         deploy.voteCandidate(accounts[9], {'from': accounts[protector[3]]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})       
+        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
     except Exception as e:
         assert e.message[50:] == "Not all protectors agree with this address"
 
@@ -380,7 +380,7 @@ def test_changeOwner_2nd_require_part6(deploy):
     deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
     deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
     deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
-    deploy.changeOwner(accounts[9], {'from': accounts[protectorNextOwner]})
+    deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     assert deploy.protectorWaitingToBeOwner() ==  accounts[9]   
 
 def test_changeOwner_candidateVotes_to_0(deploy):
@@ -390,7 +390,7 @@ def test_changeOwner_candidateVotes_to_0(deploy):
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
-    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     assert deploy.candidatesVotes(accounts[protectorOwnerAddress]) ==  0  
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
@@ -401,7 +401,7 @@ def test_changeOwner_alreadyVoted_to_false(deploy, protector):
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
-    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     assert deploy.alreadyVoted(accounts[protector], accounts[protectorOwnerAddress]) ==  False  
 
 def test_changeOwner_protectorOwner_changed(deploy):
@@ -411,8 +411,8 @@ def test_changeOwner_protectorOwner_changed(deploy):
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
-    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
-    assert deploy.smartcontractOwner() ==  accounts[protectorNextOwner] 
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorWaitingToBeOwnerAddress]})
+    assert deploy.smartcontractOwner() ==  accounts[protectorWaitingToBeOwnerAddress] 
 
 def test_changeOwner_protectorWaitingToBeOwner_changed(deploy):
     '''Checking if the protectorWaitingToBeOwner is modified'''
@@ -421,7 +421,7 @@ def test_changeOwner_protectorWaitingToBeOwner_changed(deploy):
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector3]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector4]})
     deploy.voteCandidate(accounts[8], {'from': accounts[addressProtector5]})
-    deploy.changeOwner(accounts[8], {'from': accounts[protectorNextOwner]})
+    deploy.changeOwner(accounts[8], {'from': accounts[protectorWaitingToBeOwnerAddress]})
     assert deploy.protectorWaitingToBeOwner() == accounts[8]
 
 
