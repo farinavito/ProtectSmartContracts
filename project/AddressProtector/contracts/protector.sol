@@ -80,7 +80,7 @@ contract AddressProtector {
     }
 
     /// @notice Changing the owner and the waitingToBeOwner
-    function changeOwner(address _nextInline) public {
+    function changeOwner(address _nextInline) external {
         require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
         require(candidatesVotes[_nextInline] == 5, "Not all protectors agree with this address");
         //reinitializing to 0
