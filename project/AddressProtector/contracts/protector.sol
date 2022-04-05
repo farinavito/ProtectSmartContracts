@@ -67,7 +67,7 @@ contract AddressProtector {
     }
 
     /// @notice Returning all addresses of protectors
-    function returnProtectors() external {
+    function returnProtectors() public {
         for (uint8 i = 0; i < 5; i++){
             emit showAllProtectors(allprotectorsaddresses[i]);
         }
@@ -101,12 +101,6 @@ contract AddressProtector {
         require(alreadyVoted[msg.sender][_nextInLine] == true, "You haven't voted for this address");
         alreadyVoted[msg.sender][_nextInLine] = false;
         candidatesVotes[_nextInLine] -= 1;
-    }
-
-    /// @notice Only the whitelisted address can access
-    modifier onlyWhitelisted() {
-        require(whitelist[msg.sender], "You aren't whitelisted");
-        _;
     }
 
     /// @notice Only the protectorOwner can access
