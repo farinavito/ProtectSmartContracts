@@ -4,10 +4,6 @@ pragma solidity 0.8.11;
 /// @title A way to reduce the risk in smart contracts when one address is compromised.
 /// @author Farina Vito
 
-//what can I change?
-// 2. for loop -> i something smaller than uint256 -> constructor, checkWhichProtector, returnProtector, changeOwner,
-// 3. checkWhichProtector -> returns (uint256 _i), _i could be something smaller
-
 contract AddressProtector {
 
     /// @notice Adding votes for candidates by protectors
@@ -51,15 +47,15 @@ contract AddressProtector {
         allprotectorsaddresses.push(_protector5);
 
         //initialize the protectors
-        for (uint256 i = 1; i <= 5; i++){
+        for (uint8 i = 1; i <= 5; i++){
             candidatesVotes[protectorWaitingToBeOwner] += 1;
             alreadyVoted[allprotectorsaddresses[i - 1]][protectorWaitingToBeOwner] = true;
         }
     }
 
     /// @notice Checking if the input address is the protector
-    function checkWhichProtector(address _address) internal view returns(uint256 _i){
-        for (uint256 i = 0; i < 5; i++){
+    function checkWhichProtector(address _address) internal view returns(uint8 _i){
+        for (uint8 i = 0; i < 5; i++){
             if (allprotectorsaddresses[i] == _address){
                 return i;
             } else if (i != 4){
@@ -72,7 +68,7 @@ contract AddressProtector {
 
     /// @notice Returning all addresses of protectors
     function returnProtectors() external {
-        for (uint256 i = 0; i < 5; i++){
+        for (uint8 i = 0; i < 5; i++){
             emit showAllProtectors(allprotectorsaddresses[i]);
         }
     }
@@ -83,7 +79,7 @@ contract AddressProtector {
         require(candidatesVotes[_nextInline] >= 3, "Not all protectors agree with this address");
         //reinitializing to 0
         candidatesVotes[smartcontractOwner] = 0;
-        for (uint256 i = 0; i < 5; i++){
+        for (uint8 i = 0; i < 5; i++){
             alreadyVoted[allprotectorsaddresses[i]][smartcontractOwner] = false;
         }
 
