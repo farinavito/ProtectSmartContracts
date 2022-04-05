@@ -7,7 +7,6 @@ pragma solidity 0.8.11;
 //what can I change?
 // 2. for loop -> i something smaller than uint256 -> constructor, checkWhichProtector, returnProtector, changeOwner,
 // 3. checkWhichProtector -> returns (uint256 _i), _i could be something smaller
-// 4. changeOwner -> maybe only 3 out of 5?
 
 contract AddressProtector {
 
@@ -81,7 +80,7 @@ contract AddressProtector {
     /// @notice Changing the owner and the waitingToBeOwner
     function changeOwner(address _nextInline) external {
         require(protectorWaitingToBeOwner == msg.sender, "You don't have permissions");
-        require(candidatesVotes[_nextInline] == 5, "Not all protectors agree with this address");
+        require(candidatesVotes[_nextInline] >= 3, "Not all protectors agree with this address");
         //reinitializing to 0
         candidatesVotes[smartcontractOwner] = 0;
         for (uint256 i = 0; i < 5; i++){

@@ -327,36 +327,30 @@ def test_changeowner_2nd_require_part3_4(deploy):
 @pytest.mark.parametrize("protector",  [addressProtector3, addressProtector4, addressProtector5])
 def test_changeOwner_2nd_require_part4_1(deploy, protector):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
-    try:
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
-    except Exception as e:
-        assert e.message[50:] == "Not all protectors agree with this address"
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector1]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector2]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+    deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
+    assert deploy.protectorWaitingToBeOwner() ==  accounts[9]       
 
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2])
 @pytest.mark.parametrize("protector2",  [addressProtector4, addressProtector5])
 def test_changeOwner_2nd_require_part4_2(deploy, protector, protector2):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
-    try:
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
-    except Exception as e:
-        assert e.message[50:] == "Not all protectors agree with this address"
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[protector]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[protector2]})
+    deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
+    assert deploy.protectorWaitingToBeOwner() ==  accounts[9]         
 
 def test_changeOwner_2nd_require_part4_3(deploy):
     '''checking if the candidate protectorWaitingToBeOwner has the required number of votes'''
-    try:
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
-        deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
-        deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})       
-    except Exception as e:
-        assert e.message[50:] == "Not all protectors agree with this address"
-      
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector3]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector5]})
+    deploy.voteCandidate(accounts[9], {'from': accounts[addressProtector4]})
+    deploy.changeOwner(accounts[9], {'from': accounts[protectorWaitingToBeOwnerAddress]})
+    assert deploy.protectorWaitingToBeOwner() ==  accounts[9]         
+
 @pytest.mark.parametrize("protector", [[3, 4, 5, 6], [3, 4, 5, 7], [3, 4, 6, 5], [3, 4, 6, 7], [3, 4, 7, 5], [3, 4, 7, 6], [3, 5, 4, 6], [3, 5, 4, 7], [3, 5, 6, 4], [3, 5, 6, 7], [3, 5, 7, 4], [3, 5, 7, 6], [3, 6, 4, 5], [3, 6, 4, 7], [3, 6, 5, 4], [3, 6, 5, 7], [3, 6, 7, 4], [3, 6, 7, 5], [3, 7, 4, 5], [3, 7, 4, 6], [3, 7, 5, 4], [3, 7, 5, 6], [3, 7, 6, 4], [3, 7, 6, 5], [4, 3, 5, 6], [4, 3, 5, 7], [4, 3, 6, 5], [4, 3, 6, 7], [4, 3, 7, 5], [4, 3, 7, 6], [4, 5, 3, 6], [4, 5, 3, 7], [4, 5, 6, 3], [4, 5, 6, 7], [4, 5, 7, 3], [4, 5, 7, 6], [4, 6, 3, 5], [4, 6, 3, 7], [4, 6, 5, 3], [4, 6, 5, 7], [4, 6, 7, 3], [4, 6, 7, 5], [4, 7, 3, 5], [4, 7, 3, 6], [4, 7, 5, 3], [4, 7, 5, 6], [4, 7, 
 6, 3], [4, 7, 6, 5], [5, 3, 4, 6], [5, 3, 4, 7], [5, 3, 6, 4], [5, 3, 6, 7], [5, 3, 7, 4], [5, 3, 7, 6], [5, 4, 3, 6], [5, 4, 3, 7], [5, 4, 6, 3], [5, 4, 6, 7], [5, 4, 7, 3], [5, 4, 7, 6], [5, 6, 3, 4], [5, 6, 3, 7], [5, 6, 4, 3], [5, 6, 4, 7], [5, 6, 7, 3], [5, 6, 7, 4], [5, 7, 3, 4], [5, 7, 3, 6], [5, 7, 4, 3], [5, 7, 4, 6], [5, 7, 6, 3], [5, 7, 6, 4], [6, 3, 4, 5], [6, 3, 4, 7], [6, 3, 5, 4], [6, 3, 5, 7], [6, 3, 7, 4], [6, 3, 7, 5], [6, 4, 3, 5], [6, 4, 3, 7], [6, 4, 5, 3], [6, 4, 5, 7], [6, 4, 7, 3], [6, 4, 7, 5], [6, 5, 3, 4], [6, 5, 3, 7], [6, 5, 4, 3], [6, 5, 4, 7], [6, 5, 7, 3], [6, 5, 7, 4], [6, 7, 3, 4], [6, 7, 3, 5], [6, 7, 4, 3], [6, 7, 4, 5], [6, 7, 5, 3], [6, 7, 5, 4], [7, 3, 4, 5], [7, 3, 4, 6], [7, 3, 5, 4], [7, 3, 5, 6], [7, 3, 6, 4], [7, 3, 6, 5], [7, 4, 3, 5], [7, 4, 3, 6], [7, 4, 5, 
 3], [7, 4, 5, 6], [7, 4, 6, 3], [7, 4, 6, 5], [7, 5, 3, 4], [7, 5, 3, 6], [7, 5, 4, 3], [7, 5, 4, 6], [7, 5, 6, 3], [7, 5, 6, 4], [7, 6, 3, 4], [7, 6, 3, 5], [7, 6, 4, 3], [7, 6, 4, 5], [7, 6, 5, 3], [7, 6, 5, 4]])
