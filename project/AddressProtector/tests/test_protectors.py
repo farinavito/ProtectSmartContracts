@@ -33,23 +33,28 @@ def test_protectorWaitingToBeOwnerAddress_address(deploy):
 
 def test_protector1_initialization_address(deploy):
     '''testing protector 1 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector1 - 3) == accounts[addressProtector1]
+    function_called = deploy.returnProtectors()
+    assert function_called.events[0][0]["_address"] == accounts[addressProtector1]
 
 def test_protector2_initialization_address(deploy):
     '''testing protector 2 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector2 - 3) == accounts[addressProtector2]
+    function_called = deploy.returnProtectors()
+    assert function_called.events[1][0]["_address"] == accounts[addressProtector2]
 
 def test_protector3_initialization_address(deploy):
     '''testing protector 3 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector3 - 3) == accounts[addressProtector3]
+    function_called = deploy.returnProtectors()
+    assert function_called.events[2][0]["_address"] == accounts[addressProtector3]
 
 def test_protector4_initialization_address(deploy):
     '''testing protector 4 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector4 - 3) == accounts[addressProtector4]
+    function_called = deploy.returnProtectors()
+    assert function_called.events[3][0]["_address"] == accounts[addressProtector4]
 
 def test_protector5_initialization_address(deploy):
     '''testing protector 5 address when added to constructor'''
-    assert deploy.allprotectorsaddresses(addressProtector5 - 3) == accounts[addressProtector5]
+    function_called = deploy.returnProtectors()
+    assert function_called.events[4][0]["_address"] == accounts[addressProtector5]
 
 def test_protector6_initialization_address(deploy):
     '''testing protector 6 address when added to constructor'''

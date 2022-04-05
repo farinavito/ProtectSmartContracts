@@ -5,7 +5,6 @@ pragma solidity 0.8.11;
 /// @author Farina Vito
 
 //what can I change?
-// 1. allprotectorsaddresses -> internal
 // 2. for loop -> i something smaller than uint256 -> constructor, checkWhichProtector, returnProtector, changeOwner,
 // 3. checkWhichProtector -> returns (uint256 _i), _i could be something smaller
 // 4. changeOwner -> maybe only 3 out of 5?
@@ -28,7 +27,7 @@ contract AddressProtector {
     address public protectorWaitingToBeOwner;
 
     ///@notice Storing all protectors
-    address[] public allprotectorsaddresses;
+    address[] internal allprotectorsaddresses;
 
     /// @notice Emit all the addresses of the protectors
     event showAllProtectors(address indexed _address);
