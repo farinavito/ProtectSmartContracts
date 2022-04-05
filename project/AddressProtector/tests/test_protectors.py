@@ -56,13 +56,6 @@ def test_protector5_initialization_address(deploy):
     function_called = deploy.returnProtectors()
     assert function_called.events[4][0]["_address"] == accounts[addressProtector5]
 
-def test_protector6_initialization_address(deploy):
-    '''testing protector 6 address when added to constructor'''
-    try:
-         deploy.allprotectorsaddresses(6) == "0x0000000000000000000000000000000000000000"
-    except Exception as e:
-        assert e.message[50:] == ""
-
 @pytest.mark.parametrize("protector",  [addressProtector1, addressProtector2, addressProtector3, addressProtector4, addressProtector5])
 def test_protector_alreadyVoted_owner_true(deploy, protector):
     '''checking if the the protector has initialized alreadyVoted to true'''
