@@ -37,7 +37,7 @@ In your smart contract write:
     AddressProtector public accessingProtectors;
 
     constructor(address _address) {
-    accessingProtectors = AddressProtector(_address);
+        accessingProtectors = AddressProtector(_address);
     }
     
 Than you can use it as: 
