@@ -13,6 +13,7 @@ VISUAL REPRESENTATION
 
 
 At the deployment we need to initialize:
+
     - protector 1
     - protector 2
     - protector 3
@@ -24,7 +25,7 @@ At the deployment we need to initialize:
 FUNCTIONS OF DIFFERENT ADDRESS
 ------------------------------
 
-    - protector 1-5 : They can add their vote for the the protectorWaitingToBeOwner which will become the protectorOwner after the owner will be changed. They can call voteCandidate and removeVote. 3 out of 5 protectors need to vote for a certain address to change. These 5 protector's addresses never change.
+    - protector 1-5 : They can add or remove their vote for the protectorWaitingToBeOwner which will become the protectorOwner after the owner will be changed. They can do this by calling voteCandidate and removeVote. 3 out of 5 protectors need to vote for a certain address to change. These 5 protector's addresses never change.
     - protectorWaitingToBeOwner : If agreed, this address will become the smart contract owner. It can call changeOwner function
     - protectorOwner : It can only add or removed addresses from whitelist. It can call addToWhitelist and removedFromWhitelist function
     - whitelistedAddresses : This address should be used in the contract that inherits this one for day to day jobs (for example: as the require that only these addresses can access a certain function)
